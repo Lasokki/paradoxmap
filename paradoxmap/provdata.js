@@ -1,3 +1,4 @@
+// Manually added test data
 var provdata = {"type":"FeatureCollection", "features":[
     {"type":"Feature", 
      "id":"01", 
