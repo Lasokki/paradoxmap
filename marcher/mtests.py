@@ -10,7 +10,11 @@ def test():
 
     separate = Image.open("separate.bmp")
     pixels = separate.load()
-    msepa = Marcher("separate.bmp")
+
+    # blue
+    s_colours = [(0,0,255)]
+
+    msepa = Marcher("separate.bmp", s_colours)
 
     points = msepa.do_march()
     
