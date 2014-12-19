@@ -13,25 +13,27 @@ class Marcher(object):
     # After the province is traced, add the resulting path to output. Remove the colour from stack.
     # Continue iteration until the end of bitmap or when stack is empty.
     
-    def __init__(self, i):
+    def __init__(self, i, c):
         self.img = Image.open(i)
         self.pixels = img.load()
+        self.colours = c
 
     def do_march():
-        sp = find_start_point()
+        # At this point we shall search only for one colour.
+        sp = find_start_point(self.colours[0])
         start_x = sp[0]
         start_y = sp[1]
         points = walk_perimeter(start_x, start_y)
 
         return points
 
-    def find_start_point():
+    def find_start_point(colour):
 
         output = None
 
         for i in range(self.img.size[0]):    # for every pixel:
             for j in range(self.img.size[1]):
-                if self.pixels[i,j] != (255,255,255):
+                if self.pixels[i,j] == colour:
                     output = (i,j)
                     # jump out
                     i = self.img.size[0] + 1
@@ -75,10 +77,10 @@ class Marcher(object):
 
     def step(x, y, prev_step):
         
-        bool up_left = is_desired_colour(x-1, y-1)
-        bool up_right = is_desired_colour(x, y-1)
-        bool down_left = is_desired_colour(x-1, y)
-        bool down_right = is_desired_colour(x, y)
+        bool up_left = is_desired_colour(x-1, y-1, self.colour[0])
+        bool up_right = is_desired_colour(x, y-1, self.colour[0])
+        bool down_left = is_desired_colour(x-1, y, self.colour[0])
+        bool down_right = is_desired_colour(x, y, self.colour[0])
         
         state = 0
 
