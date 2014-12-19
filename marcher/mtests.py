@@ -20,6 +20,7 @@ def test():
     points = msepa.do_march()
     
     for p in points:
+        print p
         x = p[0]
         y = p[1]
         pixels[x,y] = (255,0,0)

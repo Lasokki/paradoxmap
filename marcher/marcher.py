@@ -20,6 +20,10 @@ class Marcher(object):
 
     def do_march(self):
         # At this point we shall search only for one colour.
+
+        #DEBUG
+        print self.colours[0]
+
         sp = self.find_start_point(self.colours[0])
         start_x = sp[0]
         start_y = sp[1]
@@ -42,6 +46,7 @@ class Marcher(object):
             if stop == True:
                 break
 
+        print output
         return output
 
     def walk_perimeter(self, start_x, start_y):
@@ -96,6 +101,9 @@ class Marcher(object):
             state |= 4
         if (down_right):
             state |= 8
+
+        #DEBUG
+        print state
 
         # State is now an integer between 1 and 15
         # Each number corresponds to some variant of the square
