@@ -1,12 +1,13 @@
 """
-Some testing for Marcher
+Tests for Marcher
+
+Erkki Mattila, 2014
 """
 
 import Image
 from marcher import Marcher
 
 def test():
-
 
     surrounded = Image.open("test_input/surrounded.bmp")
     surr_pix = surrounded.load()
