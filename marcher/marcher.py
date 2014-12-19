@@ -83,6 +83,8 @@ class Marcher(object):
         if self.pixels[x,y] == colour:
             output = True
 
+        return output
+
     def step(self, x, y, prev_step):
         
         up_left = self.is_desired_colour(x-1, y-1, self.colours[0])
@@ -93,17 +95,17 @@ class Marcher(object):
         state = 0
 
         # Do some clever binary assignments
-        if (up_left):
+        if up_left:
             state |= 1
-        if (up_right):
+        if up_right:
             state |= 2
-        if (down_left):
+        if down_left:
             state |= 4
-        if (down_right):
+        if down_right:
             state |= 8
 
         #DEBUG
-        print state
+        print "State:", state
 
         # State is now an integer between 1 and 15
         # Each number corresponds to some variant of the square
