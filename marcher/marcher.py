@@ -49,13 +49,13 @@ class Marcher(object):
 
             points.push((x,y))
 
-            if next_step = UP:
+            if next_step == 'u':
                 y = y-1
-            else if next_step = LEFT:
+            else if next_step == 'l':
                 x = x-1
-            else if next_step = DOWN:
+            else if next_step == 'd':
                 y = y+1
-            else if next_step = RIGHT:
+            else if next_step == 'r':
                 x = x+1
 
             prev_step = next_step
@@ -63,8 +63,6 @@ class Marcher(object):
         return points
 
     def step(x, y, prev_step):
-        # I'm going to implement algorithm from devblog.phillipspiess.com
-        # This is some preliminary non-functional stuff for studying
         
         bool up_left = #if x-1 y-1 is of desired colour
         bool up_right = #x, y-1
@@ -83,7 +81,7 @@ class Marcher(object):
         if (down_right):
             state |= 8
 
-        # state is an integer between 1 and 15
+        # state is now an integer between 1 and 15
         # each number corresponds to some variant of the square
         # value of state tells the direction of movement
 
@@ -116,6 +114,9 @@ class Marcher(object):
                 13 : 'u',
                 14 : 'l'
             }.get(state, None)
+
+
+        # If code above doesn't work, this if-else monster should do the job
 
         # next_step = None
 
