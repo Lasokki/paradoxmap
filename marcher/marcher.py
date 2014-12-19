@@ -80,10 +80,10 @@ class Marcher(object):
 
     def step(self, x, y, prev_step):
         
-        up_left = self.is_desired_colour(x-1, y-1, self.colour[0])
-        up_right = self.is_desired_colour(x, y-1, self.colour[0])
-        down_left = self.is_desired_colour(x-1, y, self.colour[0])
-        down_right = self.is_desired_colour(x, y, self.colour[0])
+        up_left = self.is_desired_colour(x-1, y-1, self.colours[0])
+        up_right = self.is_desired_colour(x, y-1, self.colours[0])
+        down_left = self.is_desired_colour(x-1, y, self.colours[0])
+        down_right = self.is_desired_colour(x, y, self.colours[0])
         
         state = 0
 
