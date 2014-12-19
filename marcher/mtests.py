@@ -3,6 +3,7 @@ Some testing for Marcher
 """
 
 import Image
+from marcher import Marcher
 
 def test():
     #msurr = Marcher("surrounded.bmp"
