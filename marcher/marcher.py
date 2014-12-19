@@ -1,6 +1,6 @@
 """
 A class for generating a GeoJSON file from RGB-bitmap.
-I'm not sure wheter to do this as class, or as a dumber script
+
 Author: Erkki Mattila
 """
 
@@ -22,7 +22,7 @@ class Marcher(object):
         # At this point we shall search only for one colour.
 
         #DEBUG
-        print self.colours[0]
+        print "do_march colours:", self.colours[0]
 
         sp = self.find_start_point(self.colours[0])
         start_x = sp[0]
@@ -46,7 +46,7 @@ class Marcher(object):
             if stop == True:
                 break
 
-        print output
+        print "find_start_point output:", output
         return output
 
     def walk_perimeter(self, start_x, start_y):
@@ -105,11 +105,11 @@ class Marcher(object):
             state |= 8
 
         #DEBUG
-        print "State:", state
+        print "step state:", state
 
         # State is now an integer between 1 and 15
         # Each number corresponds to some variant of the square
-        # Value of state tells the direction of movement
+        # Value of state tells the direction of next step
 
         next_step = None
 
@@ -127,7 +127,7 @@ class Marcher(object):
 
         else:
             # It might be smart to initialize this dict somewhere else, if this implementation does it every
-            # time when this function is called.
+            # time when this branch is reached.
             next_step = {
                 1 : 'u',
                 2 : 'r',
