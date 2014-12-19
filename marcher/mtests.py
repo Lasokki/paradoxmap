@@ -21,32 +21,38 @@ def test():
     blue = (0,0,255)
     green = (0,255,0)
 
+    colours = [blue, green]
+
     msurr = Marcher("test_input/surrounded.bmp")
     msepa = Marcher("test_input/separate.bmp")
     mjoin = Marcher("test_input/joined.bmp")
 
-    msurr.colour = green
-    msepa.colour = green
-    mjoin.colour = green
 
-    sepa_points = msepa.do_march()
-    surr_points = msurr.do_march()
-    join_points = mjoin.do_march()
 
-    for p in sepa_points:
-         x = p[0]
-         y = p[1]
-         sepa_pix[x,y] = (255,0,0)
+    for colour in colours:
 
-    for p in surr_points:
-        x = p[0]
-        y = p[1]
-        surr_pix[x,y] = (255,0,0)
+        msurr.colour = colour
+        msepa.colour = colour
+        mjoin.colour = colour
+        
+        sepa_points = msepa.do_march()
+        surr_points = msurr.do_march()
+        join_points = mjoin.do_march()
 
-    for p in join_points:
-        x = p[0]
-        y = p[1]
-        join_pix[x,y] = (255,0,0)
+        for p in sepa_points:
+            x = p[0]
+            y = p[1]
+            sepa_pix[x,y] = (255,0,0)
+
+        for p in surr_points:
+            x = p[0]
+            y = p[1]
+            surr_pix[x,y] = (255,0,0)
+
+        for p in join_points:
+            x = p[0]
+            y = p[1]
+            join_pix[x,y] = (255,0,0)
 
     separate.save("test_output/sepatest.bmp")
     surrounded.save("test_output/surrtest.bmp")
