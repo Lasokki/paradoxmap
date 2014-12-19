@@ -31,7 +31,7 @@ class Marcher(object):
 
         for i in range(self.img.size[0]):    # for every pixel:
             for j in range(self.img.size[1]):
-                if pixels[i,j] != (255,255,255):
+                if self.pixels[i,j] != (255,255,255):
                     output = (i,j)
                     # jump out
                     i = self.img.size[0] + 1
@@ -69,12 +69,17 @@ class Marcher(object):
 
         return points
 
+    def is_desired_colour(x, y, colour):
+        output = False
+        if self.pixels[x,y] == colour:
+            output = True
+
     def step(x, y, prev_step):
         
-        bool up_left = #if x-1 y-1 is of desired colour
-        bool up_right = #x, y-1
-        bool down_left = #x-1, y
-        bool down_right = #x, y
+        bool up_left = is_desired_colour(x-1, y-1)
+        bool up_right = is_desired_colour(x, y-1)
+        bool down_left = is_desired_colour(x-1, y)
+        bool down_right = is_desired_colour(x, y)
         
         state = 0
 
