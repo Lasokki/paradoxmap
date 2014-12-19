@@ -40,7 +40,7 @@ class Marcher(object):
         return output
 
     def walk_perimeter(start_x, start_y):
-        points = None
+        points = []
         prev_step = None
 
         x = start_x
@@ -49,9 +49,8 @@ class Marcher(object):
         stop = False
 
         while stop == False:
-            next_step = step(x,y, prev_step)
-
-            points.push((x,y))
+            points.append((x,y))
+            next_step = step(x, y, prev_step)
 
             if next_step == 'u':
                 y = y-1
