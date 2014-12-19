@@ -18,11 +18,16 @@ def test():
     join_pix = joined.load()
 
     # blue
-    colours = [(0,0,255)]
+    blue = (0,0,255)
+    green = (0,255,0)
 
-    msurr = Marcher("test_input/surrounded.bmp", colours)
-    msepa = Marcher("test_input/separate.bmp", colours)
-    mjoin = Marcher("test_input/joined.bmp", colours)
+    msurr = Marcher("test_input/surrounded.bmp")
+    msepa = Marcher("test_input/separate.bmp")
+    mjoin = Marcher("test_input/joined.bmp")
+
+    msurr.colour = green
+    msepa.colour = green
+    mjoin.colour = green
 
     sepa_points = msepa.do_march()
     surr_points = msurr.do_march()

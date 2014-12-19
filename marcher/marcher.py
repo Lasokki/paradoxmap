@@ -13,32 +13,34 @@ class Marcher(object):
     # After the province is traced, add the resulting path to output. Remove the colour from stack.
     # Continue iteration until the end of bitmap or when stack is empty.
     
-    def __init__(self, i, c):
+    def __init__(self, i):
         self.img = Image.open(i)
         self.pixels = self.img.load()
-        self.colours = c
+        self.colour = None
 
     def do_march(self):
-        # At this point we shall search only for one colour.
 
         #DEBUG
-        print "do_march colours:", self.colours[0]
+        print "do_march colours:", self.colour
 
-        sp = self.find_start_point(self.colours[0])
-        start_x = sp[0]
-        start_y = sp[1]
-        points = self.walk_perimeter(start_x, start_y)
+        if self.colour is not None:
+            sp = self.find_start_point()
+            start_x = sp[0]
+            start_y = sp[1]
+            points = self.walk_perimeter(start_x, start_y)
 
+        else:
+            print "Error: no colour set for marcher!"
         return points
 
-    def find_start_point(self, colour):
+    def find_start_point(self):
 
         output = None
         stop = False
 
         for i in range(self.img.size[0]):    # for every pixel:
             for j in range(self.img.size[1]):
-                if self.pixels[i,j] == colour:
+                if self.pixels[i,j] == self.colour:
                     output = (i,j)
                     # jump out
                     stop = True
@@ -78,19 +80,19 @@ class Marcher(object):
 
         return points
 
-    def is_desired_colour(self, x, y, colour):
+    def is_desired_colour(self, x, y):
         output = False
-        if self.pixels[x,y] == colour:
+        if self.pixels[x,y] == self.colour:
             output = True
 
         return output
 
     def step(self, x, y, prev_step):
         
-        up_left = self.is_desired_colour(x-1, y-1, self.colours[0])
-        up_right = self.is_desired_colour(x, y-1, self.colours[0])
-        down_left = self.is_desired_colour(x-1, y, self.colours[0])
-        down_right = self.is_desired_colour(x, y, self.colours[0])
+        up_left = self.is_desired_colour(x-1, y-1)
+        up_right = self.is_desired_colour(x, y-1)
+        down_left = self.is_desired_colour(x-1, y)
+        down_right = self.is_desired_colour(x, y)
         
         state = 0
 
