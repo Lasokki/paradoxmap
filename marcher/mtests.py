@@ -43,9 +43,9 @@ def test():
         y = p[1]
         join_pix[x,y] = (255,0,0)
 
-    separate.show()
-    surrounded.show()
-    joined.show()
+    separate.save("test_output/sepatest.bmp")
+    surrounded.save("test_output/surrtest.bmp")
+    joined.save("test_output/jointest.bmp")
 
 if __name__ == "__main__":
     print "Start tests"
