@@ -15,19 +15,19 @@ class Marcher(object):
     
     def __init__(self, i, c):
         self.img = Image.open(i)
-        self.pixels = img.load()
+        self.pixels = self.img.load()
         self.colours = c
 
-    def do_march():
+    def do_march(self):
         # At this point we shall search only for one colour.
-        sp = find_start_point(self.colours[0])
+        sp = self.find_start_point(self.colours[0])
         start_x = sp[0]
         start_y = sp[1]
-        points = walk_perimeter(start_x, start_y)
+        points = self.walk_perimeter(start_x, start_y)
 
         return points
 
-    def find_start_point(colour):
+    def find_start_point(self, colour):
 
         output = None
 
@@ -41,7 +41,7 @@ class Marcher(object):
 
         return output
 
-    def walk_perimeter(start_x, start_y):
+    def walk_perimeter(self, start_x, start_y):
         points = []
         prev_step = None
 
@@ -52,15 +52,15 @@ class Marcher(object):
 
         while stop == False:
             points.append((x,y))
-            next_step = step(x, y, prev_step)
+            next_step = self.step(x, y, prev_step)
 
             if next_step == 'u':
                 y = y-1
-            else if next_step == 'l':
+            elif next_step == 'l':
                 x = x-1
-            else if next_step == 'd':
+            elif next_step == 'd':
                 y = y+1
-            else if next_step == 'r':
+            elif next_step == 'r':
                 x = x+1
 
             prev_step = next_step
@@ -70,17 +70,17 @@ class Marcher(object):
 
         return points
 
-    def is_desired_colour(x, y, colour):
+    def is_desired_colour(self, x, y, colour):
         output = False
         if self.pixels[x,y] == colour:
             output = True
 
-    def step(x, y, prev_step):
+    def step(self, x, y, prev_step):
         
-        bool up_left = is_desired_colour(x-1, y-1, self.colour[0])
-        bool up_right = is_desired_colour(x, y-1, self.colour[0])
-        bool down_left = is_desired_colour(x-1, y, self.colour[0])
-        bool down_right = is_desired_colour(x, y, self.colour[0])
+        up_left = self.is_desired_colour(x-1, y-1, self.colour[0])
+        up_right = self.is_desired_colour(x, y-1, self.colour[0])
+        down_left = self.is_desired_colour(x-1, y, self.colour[0])
+        down_right = self.is_desired_colour(x, y, self.colour[0])
         
         state = 0
 
@@ -106,7 +106,7 @@ class Marcher(object):
             else:
                 next_step = 'r'
 
-        else if state == 9:
+        elif state == 9:
             if prev_step == 'r':
                 next_step = 'u'
             else:
@@ -138,22 +138,22 @@ class Marcher(object):
         # if state == 1 or state == 5 or state == 13:
         #     next_step = 'u'
         
-        # else if state == 2 or state == 3 or state == 7:
+        # elif state == 2 or state == 3 or state == 7:
         #     next_step = 'r'
         
-        # else if state == 4 or state == 12 or state == 14:
+        # elif state == 4 or state == 12 or state == 14:
         #     next_step = 'l'
 
-        # else if state == 6:
+        # elif state == 6:
         #     if prev_step == 'u':
         #         next_step = 'l'
         #     else:
         #         next_step = 'r'
 
-        # else if state == 8 or state == 10 or state == 11:
+        # elif state == 8 or state == 10 or state == 11:
         #     next_step = 'd'
 
-        # else if state == 9:
+        # elif state == 9:
         #     if prev_step == 'r':
         #         next_step = 'u'
         #     else:
