@@ -30,14 +30,17 @@ class Marcher(object):
     def find_start_point(self, colour):
 
         output = None
+        stop = False
 
         for i in range(self.img.size[0]):    # for every pixel:
             for j in range(self.img.size[1]):
                 if self.pixels[i,j] == colour:
                     output = (i,j)
                     # jump out
-                    i = self.img.size[0] + 1
-                    j = self.img.size[1] + 1
+                    stop = True
+                    break
+            if stop == True:
+                break
 
         return output
 
