@@ -17,7 +17,6 @@ def test():
     joined = Image.open("test_input/joined.bmp")
     join_pix = joined.load()
 
-    # blue
     blue = (0,0,255)
     green = (0,255,0)
 
@@ -26,8 +25,6 @@ def test():
     msurr = Marcher("test_input/surrounded.bmp")
     msepa = Marcher("test_input/separate.bmp")
     mjoin = Marcher("test_input/joined.bmp")
-
-
 
     for colour in colours:
 
