@@ -27,6 +27,6 @@ def test():
     separate.show()
     
 if __name__ == "__main__":
-    print "Lol"
+    print "Start tests"
     test()
-    print "loL"
+    print "Tests have finished"
