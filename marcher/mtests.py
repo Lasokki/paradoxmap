@@ -8,21 +8,21 @@ from marcher import Marcher
 def test():
 
 
-    surrounded = Image.open("surrounded.bmp")
+    surrounded = Image.open("test_input/surrounded.bmp")
     surr_pix = surrounded.load()
 
-    separate = Image.open("separate.bmp")
+    separate = Image.open("test_input/separate.bmp")
     sepa_pix = separate.load()
 
-    joined = Image.open("joined.bmp")
+    joined = Image.open("test_input/joined.bmp")
     join_pix = joined.load()
 
     # blue
     colours = [(0,0,255)]
 
-    msepa = Marcher("separate.bmp", colours)
-    msurr = Marcher("surrounded.bmp", colours)
-    mjoin = Marcher("joined.bmp", colours)
+    msurr = Marcher("test_input/surrounded.bmp", colours)
+    msepa = Marcher("test_input/separate.bmp", colours)
+    mjoin = Marcher("test_input/joined.bmp", colours)
 
     sepa_points = msepa.do_march()
     surr_points = msurr.do_march()
