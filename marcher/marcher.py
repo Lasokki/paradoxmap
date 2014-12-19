@@ -13,15 +13,17 @@ class Marcher(object):
     # After the province is traced, add the resulting path to output. Remove the colour from stack.
     # Continue iteration until the end of bitmap or when stack is empty.
     
-    def __init__(self):
+    def __init__(self, i):
         self.img = Image.open(i)
         self.pixels = img.load()
 
-    def do_march(i):
+    def do_march():
         sp = find_start_point()
         start_x = sp[0]
         start_y = sp[1]
         points = walk_perimeter(start_x, start_y)
+
+        return points
 
     def find_start_point():
 
@@ -44,7 +46,9 @@ class Marcher(object):
         x = start_x
         y = start_y
 
-        while:
+        stop = False
+
+        while stop == False:
             next_step = step(x,y, prev_step)
 
             points.push((x,y))
@@ -60,6 +64,9 @@ class Marcher(object):
 
             prev_step = next_step
 
+            if x == start_x and y == start_y:
+                stop = True
+
         return points
 
     def step(x, y, prev_step):
@@ -71,7 +78,7 @@ class Marcher(object):
         
         state = 0
 
-        # do some clever binary assignments
+        # Do some clever binary assignments
         if (up_left):
             state |= 1
         if (up_right):
@@ -81,9 +88,9 @@ class Marcher(object):
         if (down_right):
             state |= 8
 
-        # state is now an integer between 1 and 15
-        # each number corresponds to some variant of the square
-        # value of state tells the direction of movement
+        # State is now an integer between 1 and 15
+        # Each number corresponds to some variant of the square
+        # Value of state tells the direction of movement
 
         next_step = None
 
@@ -100,6 +107,8 @@ class Marcher(object):
                 next_step = 'd'
 
         else:
+            # It might be smart to initialize this dict somewhere else, if this implementation does it every
+            # time when this function is called.
             next_step = {
                 1 : 'u',
                 2 : 'r',
