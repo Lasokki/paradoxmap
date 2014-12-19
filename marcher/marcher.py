@@ -6,7 +6,7 @@ Author: Erkki Mattila
 
 import Image
 
-class Marcher():
+class Marcher(object):
     # Draft for algorithm:
     # Have all possible province colours in a stack
     # Iterate through the pixels. If pixel is non-white and in the stack, start marching.
@@ -86,22 +86,61 @@ class Marcher():
         # state is an integer between 1 and 15
         # each number corresponds to some variant of the square
         # value of state tells the direction of movement
-        next_step = {
-            1 : UP,
-            2 : RIGHT,
-            3 : RIGHT,
-            4 : LEFT,
-            5 : UP,
-            6 : #IF-ELSE: IF UP -> LEFT, ELSE -> RIGHT
-            7 : RIGHT,
-            8 : DOWN,
-            9 : #IF-ELSE: IF RIGHT -> UP, ELSE -> DOWN
-            10 : DOWN,
-            11 : DOWN,
-            12 : LEFT,
-            13 : UP,
-            14 : LEFT,
-            default: none
-        }[value](state)
+
+        next_step = None
+
+        if state == 6:
+            if prev_step == 'u':
+                next_step = 'l'
+            else:
+                next_step = 'r'
+
+        else if state == 9:
+            if prev_step == 'r':
+                next_step = 'u'
+            else:
+                next_step = 'd'
+
+        else:
+            next_step = {
+                1 : 'u',
+                2 : 'r',
+                3 : 'r',
+                4 : 'l',
+                5 : 'u',
+                7 : 'r',
+                8 : 'd',
+                10 : 'd',
+                11 : 'd',
+                12 : 'l',
+                13 : 'u',
+                14 : 'l'
+            }.get(state, None)
+
+        # next_step = None
+
+        # if state == 1 or state == 5 or state == 13:
+        #     next_step = 'u'
+        
+        # else if state == 2 or state == 3 or state == 7:
+        #     next_step = 'r'
+        
+        # else if state == 4 or state == 12 or state == 14:
+        #     next_step = 'l'
+
+        # else if state == 6:
+        #     if prev_step == 'u':
+        #         next_step = 'l'
+        #     else:
+        #         next_step = 'r'
+
+        # else if state == 8 or state == 10 or state == 11:
+        #     next_step = 'd'
+
+        # else if state == 9:
+        #     if prev_step == 'r':
+        #         next_step = 'u'
+        #     else:
+        #         next_step = 'd'
 
         return next_step
