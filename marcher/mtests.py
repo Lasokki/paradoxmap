@@ -23,8 +23,16 @@ def test():
 
     blue = (0,0,255)
     green = (0,255,0)
-
-    colours = [blue, green]
+    red = (255, 0, 0)
+    cyan = (0, 255, 255)
+    yellow = (255, 255, 0)
+    purple = (255, 0, 255)
+    grey = (100, 100, 100)
+    white = (255, 255, 255)
+    
+    
+    simple_test_colours = [blue, green]
+    edge_test_colours = [blue, green, red, cyan, yellow, purple, grey, white]
 
     msurr = Marcher("test_input/surrounded.bmp")
     msepa = Marcher("test_input/separate.bmp")
@@ -32,7 +40,7 @@ def test():
     medge = Marcher("test_input/edges.bmp")
 
     print "Start of surrounded.bmp"
-    for colour in colours:
+    for colour in simple_test_colours:
 
         msurr.colour = colour
         surr_points = msurr.do_march()
@@ -46,7 +54,7 @@ def test():
     print "surrounded.bmp complete"
 
     print "Start of separate.bmp"
-    for colour in colours:
+    for colour in simple_test_colours:
 
         msepa.colour = colour
         sepa_points = msepa.do_march()
@@ -60,7 +68,7 @@ def test():
     print "separate.bmp complete"
 
     print "Start of joined.bmp"
-    for colour in colours:
+    for colour in simple_test_colours:
 
         mjoin.colour = colour
         join_points = mjoin.do_march()
@@ -74,7 +82,7 @@ def test():
     print "joined.bmp complete"
 
     "Start of edges.bmp"
-    for colour in colours:
+    for colour in edge_test_colours:
         
         medge.colour = colour
         edge_points = medge.do_march()
