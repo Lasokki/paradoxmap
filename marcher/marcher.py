@@ -145,33 +145,4 @@ class Marcher(object):
                 14 : 'l'
             }.get(state, None)
 
-
-        # If code above doesn't work, this if-else monster should do the job
-
-        # next_step = None
-
-        # if state == 1 or state == 5 or state == 13:
-        #     next_step = 'u'
-        
-        # elif state == 2 or state == 3 or state == 7:
-        #     next_step = 'r'
-        
-        # elif state == 4 or state == 12 or state == 14:
-        #     next_step = 'l'
-
-        # elif state == 6:
-        #     if prev_step == 'u':
-        #         next_step = 'l'
-        #     else:
-        #         next_step = 'r'
-
-        # elif state == 8 or state == 10 or state == 11:
-        #     next_step = 'd'
-
-        # elif state == 9:
-        #     if prev_step == 'r':
-        #         next_step = 'u'
-        #     else:
-        #         next_step = 'd'
-
         return next_step
