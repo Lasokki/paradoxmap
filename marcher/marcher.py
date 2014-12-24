@@ -82,9 +82,14 @@ class Marcher(object):
 
     def is_desired_colour(self, x, y):
         output = False
-        if self.pixels[x,y] == self.colour:
-            output = True
-
+        #width, height
+        if x < self.img.size[0] and x >= 0 and y < self.img.size[1] and y >= 0:
+            print "currcoord", x,y
+            print "imgsize", self.img.size[0], self.img.size[1]
+            if self.pixels[x,y] == self.colour:
+                output = True
+        else:
+            print "DEBUG: OUT OF BOUNDS"
         return output
 
     def step(self, x, y, prev_step):
