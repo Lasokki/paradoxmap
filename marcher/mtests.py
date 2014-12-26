@@ -27,92 +27,38 @@ def test(tests):
     test_edg = False
 
     for test in tests:
+        colours = simple_test_colours
         if test == "sur":
-            test_sur = True
+            img = Image.open("test_input/surrounded.bmp")
+            pix = img.load()
+            marcher = Marcher("test_input/surrounded.bmp")
+            out = "test_output/surrtest.bmp"
         elif test == "sep":
-            test_sep = True
+            img = Image.open("test_input/separate.bmp")
+            pix = img.load()
+            marcher = Marcher("test_input/separate.bmp")
+            out = "test_output/sepatest.bmp"
         elif test == "joi":
-            test_joi = True
+            img = Image.open("test_input/joined.bmp")
+            pix = img.load()
+            marcher = Marcher("test_input/joined.bmp")
+            out = "test_output/jointest.bmp"
         elif test == "edg":
-            test_edg = True
-
-    if test_sur == True:
-        surrounded = Image.open("test_input/surrounded.bmp")
-        surr_pix = surrounded.load()
-        msurr = Marcher("test_input/surrounded.bmp")
-
-        print "Start of surrounded.bmp"
-        for colour in simple_test_colours:
-
-            msurr.colour = colour
-            surr_points = msurr.do_march()
-
-            for p in surr_points:
+            img = Image.open("test_input/edges.bmp")
+            pix = img.load()
+            marcher = Marcher("test_input/edges.bmp")
+            out = "test_output/edgetest.bmp"
+            colours = edge_test_colours
+           
+        for colour in colours:
+            marcher.colour = colour
+            points = marcher.do_march()
+            for p in points:
                 x = p[0]
                 y = p[1]
-                surr_pix[x,y] = (255,0,0)
+                pix[x,y] = (255,0,0)
 
-        surrounded.save("test_output/surrtest.bmp")
-        print "surrounded.bmp complete"
-    
-    if test_sep == True:
-        separate = Image.open("test_input/separate.bmp")
-        sepa_pix = separate.load()
-        msepa = Marcher("test_input/separate.bmp")
-
-        print "Start of separate.bmp"
-        for colour in simple_test_colours:
-
-            msepa.colour = colour
-            sepa_points = msepa.do_march()
-        
-            for p in sepa_points:
-                x = p[0]
-                y = p[1]
-                sepa_pix[x,y] = (255,0,0)
-
-        separate.save("test_output/sepatest.bmp")
-        print "separate.bmp complete"
-
-    if test_joi == True:
-        joined = Image.open("test_input/joined.bmp")
-        join_pix = joined.load()
-        mjoin = Marcher("test_input/joined.bmp")
-        
-        print "Start of joined.bmp"
-        for colour in simple_test_colours:
-
-            mjoin.colour = colour
-            join_points = mjoin.do_march()
-
-            for p in join_points:
-                x = p[0]
-                y = p[1]
-                join_pix[x,y] = (255,0,0)
-    
-        joined.save("test_output/jointest.bmp")
-        print "joined.bmp complete"
-
-    if test_edg == True:
-        edges = Image.open("test_input/edges.bmp")
-        edge_pix = edges.load()
-        medge = Marcher("test_input/edges.bmp")
-
-        "Start of edges.bmp"
-        for colour in edge_test_colours:
-            print colour
-            medge.colour = colour
-            edge_points = medge.do_march()
-
-            print "editing picture"
-            for p in edge_points:
-                x = p[0]
-                y = p[1]
-                #print x,y
-                edge_pix[x,y] = (red)
-
-        edges.save("test_output/edgetest.bmp")
-        print "edges.bmp complete"
+        img.save(out)
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
