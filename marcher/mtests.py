@@ -20,11 +20,7 @@ def test(tests):
     
     simple_test_colours = [blue, green]
     edge_test_colours = [blue, green, red, cyan, yellow, purple, grey, white]
-
-    test_sur = False
-    test_sep = False
-    test_joi = False
-    test_edg = False
+    squi_test_colours = [blue, green, yellow]
 
     for test in tests:
         colours = simple_test_colours
@@ -49,17 +45,24 @@ def test(tests):
             marcher = Marcher("test_input/edges.bmp")
             out = "test_output/edgetest.bmp"
             colours = edge_test_colours
-           
+        elif test == "squ":
+            img = Image.open("test_input/squiggles.bmp")
+            pix = img.load()
+            marcher = Marcher("test_input/squiggles.bmp")
+            out = "test_output/squitest.bmp"
+            colours = squi_test_colours
+
         for colour in colours:
             marcher.colour = colour
             points = marcher.do_march()
             for p in points:
                 x = p[0]
                 y = p[1]
+                print x,y
                 pix[x,y] = (255,0,0)
 
-        img.save(out)
-
+            img.save(out)
+        
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         print "Start tests"
