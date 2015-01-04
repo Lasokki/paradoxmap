@@ -66,4 +66,4 @@ if __name__ == "__main__":
         test(sys.argv[1:])
         print "Tests have finished"
     else:
-        print "Give some tests"
+        print "Give some tests: sur, sep, joi, edg"
