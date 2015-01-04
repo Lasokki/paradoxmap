@@ -79,6 +79,7 @@ class Marcher(object):
             prev_step = next_step
 
             if x == start_x and y == start_y:
+                print x, y, start_x, start_y
                 stop = True
 
         return points
@@ -97,13 +98,26 @@ class Marcher(object):
 
     def step(self, x, y, prev_step):
         
+        if x == self.img.size[0]-1:
+            x = x+1
+        
+        if y == self.img.size[1]-1:
+            y = y+1
+        
         up_left = self.is_desired_colour(x-1, y-1)
         up_right = self.is_desired_colour(x, y-1)
         down_left = self.is_desired_colour(x-1, y)
         down_right = self.is_desired_colour(x, y)
-        
+
         state = 0
 
+       
+        print x, y
+        print "ul", up_left
+        print "ur", up_right
+        print "dl", down_left
+        print "dr", down_right
+       
         # Do some clever binary assignments
         if up_left:
             state |= 1
