@@ -23,6 +23,7 @@ def test(tests):
     squi_test_colours = [blue, green, yellow]
 
     for test in tests:
+        start = time.time()
         colours = simple_test_colours
         if test == "sur":
             infile = "test_input/surrounded.bmp"
@@ -58,13 +59,15 @@ def test(tests):
                 pix[x,y] = (255,0,0)
 
             img.save(out)
-        
+        delta = time.time() - start
+        print (test + " took %.3f seconds to complete" %delta)
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         print ("Begun tests")
         start = time.time()
         test(sys.argv[1:])
         delta = time.time() - start
-        print ("Tests have finished in %.3f seconds" %delta)
+        print ("Tests have finished in ~%.3f seconds" %delta)
     else:
         print ("Give some tests: sur, sep, joi, edg, squ")
