@@ -9,7 +9,7 @@ Erkki Mattila, 2014
 import Image, time
 from marcher import Marcher
 
-def generate(tests):
+def generate():
 
     img = Image.open("provinces.bmp")
     pix = img.load()
