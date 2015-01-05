@@ -4,7 +4,7 @@ Tests for Marcher
 Erkki Mattila, 2014
 """
 
-import Image, sys
+import Image, sys, time
 from marcher import Marcher
 
 def test(tests):
@@ -42,7 +42,7 @@ def test(tests):
             out = "test_output/squitest.bmp"
             colours = squi_test_colours
         else:
-            print "no test given"
+            print("no test given")
             break
 
         img = Image.open(infile)
@@ -55,15 +55,16 @@ def test(tests):
             for p in points:
                 x = p[0]
                 y = p[1]
-                print x,y
                 pix[x,y] = (255,0,0)
 
             img.save(out)
         
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        print "Start tests"
+        print ("Begun tests")
+        start = time.time()
         test(sys.argv[1:])
-        print "Tests have finished"
+        delta = time.time() - start
+        print ("Tests have finished in %.3f seconds" %delta)
     else:
-        print "Give some tests: sur, sep, joi, edg, squ"
+        print ("Give some tests: sur, sep, joi, edg, squ")
