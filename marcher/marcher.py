@@ -21,7 +21,7 @@ class Marcher(object):
     def do_march(self):
 
         #DEBUG
-        print "do_march colours:", self.colour
+        #print "do_march colours:", self.colour
 
         if self.colour is not None:
             sp = self.find_start_point()
@@ -47,8 +47,8 @@ class Marcher(object):
                     break
             if stop == True:
                 break
-
-        print "find_start_point output:", output
+        #DEBUG
+        #print "find_start_point output:", output
         return output
 
     def walk_perimeter(self, start_x, start_y):
@@ -79,7 +79,8 @@ class Marcher(object):
             prev_step = next_step
 
             if x == start_x and y == start_y:
-                print x, y, start_x, start_y
+                #DEBUG
+                #print x, y, start_x, start_y
                 stop = True
 
         return points
@@ -88,6 +89,7 @@ class Marcher(object):
         output = False
         #width, height
         if x < self.img.size[0] and x >= 0 and y < self.img.size[1] and y >= 0:
+            #DEBUG
             #print "currcoord", x,y
             #print "imgsize", self.img.size[0], self.img.size[1]
             if self.pixels[x,y] == self.colour:
@@ -111,12 +113,12 @@ class Marcher(object):
 
         state = 0
 
-       
-        print x, y
-        print "ul", up_left
-        print "ur", up_right
-        print "dl", down_left
-        print "dr", down_right
+        #DEBUG
+        #print x, y
+        #print "ul", up_left
+        #print "ur", up_right
+        #print "dl", down_left
+        #print "dr", down_right
        
         # Do some clever binary assignments
         if up_left:
