@@ -41,19 +41,14 @@ def find_starting_points(x, y, pixels, provs):
     
     output = {}
 
-    for colour in provs:
-        print "sp", colour
-        stop = False
-
-        for i in range(x):    # for every pixel:
-            for j in range(y):
-                if pixels[i,j] == colour:
-                    output[colour] = (i,j)
-                    # jump out
-                    stop = True
-                    break
-            if stop == True:
-                break
+    stop = False
+    
+    for i in range(x):    # for every pixel:
+        for j in range(y):
+            try:
+                output[pixels[i,j]]
+            except KeyError:
+                output[pixels[i,j]] = (i,j)
 
     delta = time.time() - start
     print ("Finding starting points took %.3f seconds" %delta)   
