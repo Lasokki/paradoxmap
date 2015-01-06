@@ -32,7 +32,7 @@ def read_definition(definition):
                     pass
 
     delta = time.time() - start
-    print ("Reading definition took %.3f seconds" %delta)
+    print ("Reading definition.csv took %.3f seconds" %delta)
     return provs
 
 def find_starting_points(x, y, pixels, provs):
@@ -42,7 +42,7 @@ def find_starting_points(x, y, pixels, provs):
     output = {}
 
     for colour in provs:
-
+        print colour
         stop = False
 
         for i in range(x):    # for every pixel:
