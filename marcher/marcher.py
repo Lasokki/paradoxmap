@@ -6,6 +6,21 @@ Author: Erkki Mattila
 
 import Image
 
+directions = {
+    1 : 'u',
+    2 : 'r',
+    3 : 'r',
+    4 : 'l',
+    5 : 'u',
+    7 : 'r',
+    8 : 'd',
+    10 : 'd',
+    11 : 'd',
+    12 : 'l',
+    13 : 'u',
+    14 : 'l'
+}
+
 class Marcher(object):
     # Draft for algorithm:
     # Have all possible province colours in a stack
@@ -152,21 +167,6 @@ class Marcher(object):
                 next_step = 'd'
 
         else:
-            # It might be smart to initialize this dict somewhere else, if this implementation does it every
-            # time when this branch is reached.
-            next_step = {
-                1 : 'u',
-                2 : 'r',
-                3 : 'r',
-                4 : 'l',
-                5 : 'u',
-                7 : 'r',
-                8 : 'd',
-                10 : 'd',
-                11 : 'd',
-                12 : 'l',
-                13 : 'u',
-                14 : 'l'
-            }.get(state, None)
-
+            next_step = directions.get(state,None)
+        
         return next_step
