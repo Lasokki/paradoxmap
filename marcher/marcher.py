@@ -1,7 +1,10 @@
 """
-A class for generating a GeoJSON file from RGB-bitmap.
+Program for generating a GeoJSON-file from provinces.bmp.
 
-Author: Erkki Mattila
+This class creates an object that uses marching squares to trace
+outlines of a province.
+
+Author: Erkki Mattila 2014-2015
 """
 
 import Image
@@ -22,11 +25,6 @@ directions = {
 }
 
 class Marcher(object):
-    # Draft for algorithm:
-    # Have all possible province colours in a stack
-    # Iterate through the pixels. If pixel is non-white and in the stack, start marching.
-    # After the province is traced, add the resulting path to output. Remove the colour from stack.
-    # Continue iteration until the end of bitmap or when stack is empty.
     
     def __init__(self, i):
         self.img = Image.open(i)

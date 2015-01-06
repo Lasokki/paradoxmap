@@ -1,9 +1,9 @@
 """
 Program for generating a GeoJSON-file from provinces.bmp.
 
-This file runs Marchers.
+This is the main file responsible for running the show.
 
-Erkki Mattila, 2014
+Author: Erkki Mattila, 2014-2015
 """
 
 import Image, time, csv
