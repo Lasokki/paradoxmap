@@ -18,7 +18,7 @@ class Marcher(object):
         self.pixels = self.img.load()
         self.colour = None
 
-    def do_march(self):
+    def do_march(self, sp):
 
         #DEBUG
         #print "do_march colours:", self.colour
