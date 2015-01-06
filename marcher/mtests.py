@@ -7,6 +7,31 @@ Erkki Mattila, 2014
 import Image, sys, time
 from marcher import Marcher
 
+def find_starting_points(x, y, pixels, provs):
+    start = time.time()
+    print ("Begun searching for starting points")
+    
+    output = {}
+
+    for colour in provs:
+        print "sp", colour
+        stop = False
+
+        for i in range(x):    # for every pixel:
+            for j in range(y):
+                if pixels[i,j] == colour:
+                    output[colour] = (i,j)
+                    # jump out
+                    stop = True
+                    break
+            if stop == True:
+                break
+
+    delta = time.time() - start
+    print ("Finding starting points took %.3f seconds" %delta)   
+    
+    return output
+
 def test(tests):
 
     blue = (0,0,255)
@@ -49,16 +74,21 @@ def test(tests):
         img = Image.open(infile)
         pix = img.load()
         marcher = Marcher(infile)
+        starting_points = find_starting_points(img.size[0], img.size[1], pix, colours)
+
 
         for colour in colours:
+            print "gen", colour
             marcher.colour = colour
-            points = marcher.do_march()
+            sp = starting_points[colour]
+            points = marcher.do_march(sp)
             for p in points:
                 x = p[0]
                 y = p[1]
                 pix[x,y] = (255,0,0)
 
             img.save(out)
+
         delta = time.time() - start
         print (test + " took %.3f seconds to complete" %delta)
 
