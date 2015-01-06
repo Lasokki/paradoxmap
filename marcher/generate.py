@@ -42,7 +42,7 @@ def find_starting_points(x, y, pixels, provs):
     output = {}
 
     for colour in provs:
-        print colour
+        print "sp", colour
         stop = False
 
         for i in range(x):    # for every pixel:
@@ -73,7 +73,7 @@ def generate():
     starting_points = find_starting_points(img.size[0], img.size[1], pix, provs)
 
     for colour in provs:
-        print colour
+        print "gen", colour
         marcher.colour = colour
         sp = starting_points[colour]
         points = marcher.do_march(sp)
