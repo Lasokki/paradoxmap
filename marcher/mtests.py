@@ -41,6 +41,7 @@ def test(tests):
     simple_test_colours = [blue, green]
     edge_test_colours = [blue, green, red, cyan, yellow, purple, grey, white]
     squi_test_colours = [blue, green, yellow]
+    prov_colour = [(42,189,93)]
 
     for test in tests:
         start = time.time()
@@ -62,6 +63,10 @@ def test(tests):
             infile = "test_input/squiggles.bmp"
             out = "test_output/squitest.bmp"
             colours = squi_test_colours
+        elif test == "prov":
+            infile = "provinces.bmp"
+            out = "test_output/prov_test.bmp"
+            colours = prov_colour
         else:
             print("no test given")
             break
@@ -71,9 +76,12 @@ def test(tests):
         marcher = Marcher(infile)
         starting_points = find_starting_points(img.size[0], img.size[1], pix, colours)
 
+        i = 0
+        count = len(colours)
 
         for colour in colours:
-            print "gen", colour
+            i = i + 1
+            print ("{}/{} {}".format(i, count, colour))
             marcher.colour = colour
             sp = starting_points[colour]
             points = marcher.do_march(sp)
