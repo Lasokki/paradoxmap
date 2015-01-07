@@ -68,7 +68,7 @@ def generate():
 
     marcher = Marcher("provinces.bmp")
 
-    out = "test_output/prov_out.bmp"
+    out = "prov_out.bmp"
     provs = read_definition("definition.csv")
     starting_points = find_starting_points(img.size[0], img.size[1], pix, provs)
 
@@ -80,18 +80,21 @@ def generate():
         print ("{}/{} {}".format(i, prov_numb, colour))
         marcher.colour = colour
 
+        if i == 872:
+            break
         try:
             sp = starting_points[colour]
             points = marcher.do_march(sp)
 
+            for p in points:
+                x = p[0]
+                y = p[1]
+                outpix[x,y] = (255,0,0)
+        
         except KeyError:
             pass
 
-        #for p in points:
-            #x = p[0]
-            #y = p[1]
-            #outpix[x,y] = (255,0,0)
-    #outimg.save(out)
+    outimg.save(out)
 
 if __name__ == "__main__":
     start = time.clock()
