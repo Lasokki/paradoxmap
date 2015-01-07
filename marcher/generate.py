@@ -79,6 +79,10 @@ def generate():
     min_perimeter = 0
     pix_count = 0
 
+
+    f = open("ckii_provdata.js", 'w')
+    f.write('var ckii_provdata = {"type":"FeatureCollection", "features":[') 
+
     for colour in provs:
         i = i + 1
         print ("{}/{} {}".format(i, prov_count, colour))
@@ -88,14 +92,27 @@ def generate():
             sp = starting_points[colour]
             points = marcher.do_march(sp)
             perimeter = 0
-
+            points_string = ""
+            
             for p in points:
                 x = p[0]
-                y = p[1]
-                outpix[x,y] = colour
+                y = -p[1]
+                
+                if points_string == "":
+                    points_string = points_string + '[{}, {}]'.format(x, y)
+                else:
+                    points_string = points_string + ',[{}, {}]'.format(x,y)
+
                 pix_count = pix_count + 1
                 perimeter = perimeter + 1
-        
+
+            prov_string = '{"type":"Feature","id":"1","properties":{"name":"derp"},"geometry":{"type":"Polygon","coordinates":[[' + points_string + ']]}}'
+
+            if i == 1:
+                f.write(prov_string)
+            else:
+                f.write(',' + prov_string)
+
             if perimeter < min_perimeter:
                 min_perimeter = perimeter
             if perimeter > max_perimeter:
@@ -106,8 +123,9 @@ def generate():
         except KeyError:
             pass
 
-    outimg.save(out)    
-    print("Pixels: {}\nLongest perimeter: {}\nShortest perimeter: {}".format(pix_count, max_perimeter, min_perimeter))
+    f.write(']};')
+    f.close
+    print("Pixels in outlines: {}\nLongest perimeter: {}\nShortest perimeter: {}".format(pix_count, max_perimeter, min_perimeter))
 
 if __name__ == "__main__":
     start = time.clock()
