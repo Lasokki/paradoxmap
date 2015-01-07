@@ -27,7 +27,7 @@ def read_definition(definition):
                     r = int(row[1])
                     g = int(row[2])
                     b = int(row[3])
-                    provs.append((r,g,b))
+                    provs.append(row)
                 except ValueError:
                     pass
 
@@ -80,9 +80,14 @@ def generate():
     f = open("ckii_provdata.js", 'w')
     f.write('var ckii_provdata = {"type":"FeatureCollection", "features":[') 
 
-    for colour in provs:
+    for prov in provs:
         i = i + 1
-        print ("{}/{} {}".format(i, prov_count, colour))
+        
+        colour =  (int(prov[1]), int(prov[2]), int(prov[3]))
+        prov_id = int(prov[0])
+        prov_name = prov[4]
+        
+        print ("{}/{} {} {} {}".format(i, prov_count, colour, prov_name, prov_id))
         marcher.colour = colour
 
         try:
@@ -103,7 +108,7 @@ def generate():
                 pix_count = pix_count + 1
                 perimeter = perimeter + 1
 
-            prov_string = '{"type":"Feature","id":"1","properties":{"name":"derp"},"geometry":{"type":"Polygon","coordinates":[[' + points_string + ']]}}'
+            prov_string = '{"type":"Feature","id":"' + str(prov_id) + '","properties":{"name":"' + prov_name + '"},"geometry":{"type":"Polygon","coordinates":[[' + points_string + ']]}}'
 
             if i == 1:
                 f.write(prov_string)
