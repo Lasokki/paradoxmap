@@ -72,8 +72,12 @@ def generate():
     provs = read_definition("definition.csv")
     starting_points = find_starting_points(img.size[0], img.size[1], pix, provs)
 
+    i = 0
+    prov_numb = len(provs)
+
     for colour in provs:
-        print "gen", colour
+        i = i + 1
+        print ("{}/{} {}".format(i, prov_numb, colour))
         marcher.colour = colour
         sp = starting_points[colour]
         points = marcher.do_march(sp)
