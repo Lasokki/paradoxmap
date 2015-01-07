@@ -73,26 +73,41 @@ def generate():
     starting_points = find_starting_points(img.size[0], img.size[1], pix, provs)
 
     i = 0
-    prov_numb = len(provs)
+    prov_count = len(provs)
+
+    max_perimeter = 0
+    min_perimeter = 0
+    pix_count = 0
 
     for colour in provs:
         i = i + 1
-        print ("{}/{} {}".format(i, prov_numb, colour))
+        print ("{}/{} {}".format(i, prov_count, colour))
         marcher.colour = colour
 
         try:
             sp = starting_points[colour]
             points = marcher.do_march(sp)
-            
+            perimeter = 0
+
             for p in points:
                 x = p[0]
                 y = p[1]
                 outpix[x,y] = colour
+                pix_count = pix_count + 1
+                perimeter = perimeter + 1
         
+            if perimeter < min_perimeter:
+                min_perimeter = perimeter
+            if perimeter > max_perimeter:
+                max_perimeter = perimeter
+            if i == 1:
+                min_perimeter = max_perimeter
+
         except KeyError:
             pass
 
-    outimg.save(out)
+    outimg.save(out)    
+    print("Pixels: {}\nLongest perimeter: {}\nShortest perimeter: {}".format(pix_count, max_perimeter, min_perimeter))
 
 if __name__ == "__main__":
     start = time.clock()
