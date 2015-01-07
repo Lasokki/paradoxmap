@@ -29,7 +29,7 @@ info.onAdd = function (map) {
 };
 
 info.update = function (props, id) {
-    this._div.innerHTML = '<h4>Töki ja klikkaa monikulmiota, niin näet jotain</h4>' +  (props ? props.name: "") + '<br>' + (id ? id: "");
+    this._div.innerHTML = '<h4>Click on a province to zoom in</h4>' + (props ? props.name: "") + '<br>' + (id ? id: "");
 };
 
 info.addTo(map);
