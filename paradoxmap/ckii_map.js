@@ -37,10 +37,8 @@ info.addTo(map);
 // GeoJSON-STUFF
 
 function getColor(n) {
-    return n == 'Saapasmaa' ? 'green' :
-	   n == "L'Hexagone" ? 'blue' :
-	   n == "Ultima Thule" ? 'orange' :
-	   'red';
+    return n == "" ? "black" :
+	'red';
 }
 
 function style(feature) {
@@ -48,9 +46,9 @@ function style(feature) {
 	fillColor: getColor(feature.properties.name),
         weight: 2,
         opacity: 1,
-        color: 'red',
+        color: 'maroon',
         dashArray: '3',
-        fillOpacity: 0.5
+        fillOpacity: 0.4
     };
 }
 
@@ -59,12 +57,11 @@ function style(feature) {
 function highlightFeature(e) {
     var layer = e.target;
 
-
     layer.setStyle({
         weight: 3,
         color: 'red',
         dashArray: '',
-        fillOpacity: 0.7
+        fillOpacity: 1
     });
 
     if (!L.Browser.ie && !L.Browser.opera) {
