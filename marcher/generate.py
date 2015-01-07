@@ -26,9 +26,9 @@ def read_definition(definition):
                        "Iskender", "Western", "East", "Nile Delta", "Levant", "Elbe", "Rhine", 
                        "Vistula", "Kattegat", "Waddenzee", "Daugava", "Volga", "Svir", "Neva", "Don", 
                        "Desna", "Oka", "Lovat", "Volkhov", "Dni", "Dny", "Dne", "Pripyat", "Toropets",
-                       "Dwina", "Kallavesi"]
-    #Näsijärvi, Oulujärvi, Onega, Päijänne, spots in the Indian Ocean
-    skip_id = [943, 957, 997, 1018, 1293, 1412]
+                       "Dwina", "Kallavesi", "Bodensee"]
+    #Näsijärvi, Oulujärvi, Hjälmaren, Vättern, Vänern, Onega, Päijänne, some lake in Siberia, spots in the Indian Ocean
+    skip_id = [943, 957, 961, 962, 963, 997, 1018, 1293, 1305, 1412]
 
     csv.register_dialect('ckii', delimiter=';', quoting=csv.QUOTE_NONE)
 
