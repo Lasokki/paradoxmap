@@ -9,7 +9,7 @@ var ne = map.unproject([2048,0], map.getMinZoom());
 
 //map.setMaxBounds(new L.LatLngBounds(sw, ne));
 
-L.tileLayer('outlines/{z}/{x}/{y}.png', {
+L.tileLayer('', {
     minZoom: 0,
     maxZoom: 6,
     attribution: 'Paradox Interactive / Erkki Mattila',
