@@ -62,7 +62,12 @@ def generate():
 
     img = Image.open("provinces.bmp")
     pix = img.load()
+
+    outimg = Image.new('RGB', (img.size[0], img.size[1]), "black")
+    outpix = outimg.load()
+
     marcher = Marcher("provinces.bmp")
+
     out = "test_output/prov_out.bmp"
     provs = read_definition("definition.csv")
     starting_points = find_starting_points(img.size[0], img.size[1], pix, provs)
@@ -75,9 +80,8 @@ def generate():
         for p in points:
             x = p[0]
             y = p[1]
-            pix[x,y] = (255,0,0)
-
-    img.save(out)
+            outpix[x,y] = (255,0,0)
+    outimg.save(out)
 
 if __name__ == "__main__":
     start = time.clock()
