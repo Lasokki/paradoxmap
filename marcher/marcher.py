@@ -92,11 +92,11 @@ class Marcher(object):
 
     def step(self, x, y, prev_step):
         
-        if x == self.img.size[0]-1:
-            x = x+1
+        #if x == self.img.size[0]-1:
+        #    x = x+1
         
-        if y == self.img.size[1]-1:
-            y = y+1
+        #if y == self.img.size[1]-1:
+        #    y = y+1
         
         up_left = self.is_desired_colour(x-1, y-1)
         up_right = self.is_desired_colour(x, y-1)
