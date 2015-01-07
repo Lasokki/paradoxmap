@@ -35,7 +35,7 @@ def read_definition(definition):
     print ("Reading definition.csv took %.3f seconds" %delta)
     return provs
 
-def find_starting_points(x, y, pixels, provs):
+def find_starting_points(x, y, pixels):
     start = time.time()
     print ("Begun searching for starting points")
     
@@ -63,14 +63,11 @@ def generate():
     img = Image.open("provinces.bmp")
     pix = img.load()
 
-    outimg = Image.new('RGB', (img.size[0], img.size[1]), "black")
-    outpix = outimg.load()
-
     marcher = Marcher("provinces.bmp")
 
     out = "prov_out.bmp"
     provs = read_definition("definition.csv")
-    starting_points = find_starting_points(img.size[0], img.size[1], pix, provs)
+    starting_points = find_starting_points(img.size[0], img.size[1], pix)
 
     i = 0
     prov_count = len(provs)
