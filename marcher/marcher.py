@@ -37,7 +37,6 @@ class Marcher(object):
         #print "do_march colours:", self.colour
 
         if self.colour is not None:
-            sp = self.find_start_point()
             start_x = sp[0]
             start_y = sp[1]
             points = self.walk_perimeter(start_x, start_y)
@@ -46,27 +45,8 @@ class Marcher(object):
             print "Error: no colour set for marcher!"
         return points
 
-    def find_start_point(self):
-
-        output = None
-        stop = False
-
-        for i in range(self.img.size[0]):    # for every pixel:
-            for j in range(self.img.size[1]):
-                if self.pixels[i,j] == self.colour:
-                    output = (i,j)
-                    # jump out
-                    stop = True
-                    break
-            if stop == True:
-                break
-        #DEBUG
-        #print "find_start_point output:", output
-        return output
-
     def walk_perimeter(self, start_x, start_y):
 
-        #points = []
         prev_step = None
 
         x = start_x
@@ -77,8 +57,8 @@ class Marcher(object):
         while stop == False:
 
             if x >= 0 and x < self.img.size[0] and y >= 0 and y < self.img.size[1]:
-                #points.append((x,y))
                 yield (x,y)
+
             next_step = self.step(x, y, prev_step)
 
             if next_step == 'u':
@@ -96,8 +76,6 @@ class Marcher(object):
                 #DEBUG
                 #print x, y, start_x, start_y
                 stop = True
-
-        #return points
 
     def is_desired_colour(self, x, y):
         output = False
