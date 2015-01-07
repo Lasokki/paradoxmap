@@ -66,7 +66,7 @@ class Marcher(object):
 
     def walk_perimeter(self, start_x, start_y):
 
-        points = []
+        #points = []
         prev_step = None
 
         x = start_x
@@ -77,7 +77,8 @@ class Marcher(object):
         while stop == False:
 
             if x >= 0 and x < self.img.size[0] and y >= 0 and y < self.img.size[1]:
-                points.append((x,y))
+                #points.append((x,y))
+                yield (x,y)
             next_step = self.step(x, y, prev_step)
 
             if next_step == 'u':
@@ -96,7 +97,7 @@ class Marcher(object):
                 #print x, y, start_x, start_y
                 stop = True
 
-        return points
+        #return points
 
     def is_desired_colour(self, x, y):
         output = False
