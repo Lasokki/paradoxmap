@@ -27,10 +27,10 @@ def read_definition(definition):
                        "Vistula", "Kattegat", "Waddenzee", "Daugava", "Volga1", "Volga2", "Volga3", 
                        "Volga4", "Volga5", "Volga6", "Volga7", "Volga8", "Volga9", "Svir", "Neva", "Don1",
                        "Don2", "Don3", "Don4", "Desna", "Oka", "Lovat", "Volkhov", "Dniester", 
-                       "Dnieper1", "Dnieper2", "Dnieper3", "Dny", "Dne", "Pripyat", "Dwina", "Kallavesi", "Bodensee"]
+                       "Dnieper1", "Dnieper2", "Dnieper3", "Dnipro", "Dny", "Dne", "Pripyat", "Dwina", "Kallavesi", "Bodensee"]
 
-    #Näsijärvi, Oulujärvi, Hjälmaren, Vättern, Vänern, Onega, Päijänne, some lake in Siberia, spots in the Indian Ocean
-    skip_id = [943, 957, 961, 962, 963, 997, 1018, 1293, 1305, 1412]
+    #Näsijärvi, Oulujärvi, Mälaren, Hjälmaren, Vättern, Vänern, Onega, Päijänne, some lake in Siberia, spots in the Indian Ocean
+    skip_id = [943, 957, 959, 961, 962, 963, 997, 1018, 1293, 1305, 1412]
 
     csv.register_dialect('ckii', delimiter=';', quoting=csv.QUOTE_NONE)
 
