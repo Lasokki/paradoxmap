@@ -79,13 +79,19 @@ def generate():
         i = i + 1
         print ("{}/{} {}".format(i, prov_numb, colour))
         marcher.colour = colour
-        sp = starting_points[colour]
-        points = marcher.do_march(sp)
-        for p in points:
-            x = p[0]
-            y = p[1]
-            outpix[x,y] = (255,0,0)
-    outimg.save(out)
+
+        try:
+            sp = starting_points[colour]
+            points = marcher.do_march(sp)
+
+        except KeyError:
+            pass
+
+        #for p in points:
+            #x = p[0]
+            #y = p[1]
+            #outpix[x,y] = (255,0,0)
+    #outimg.save(out)
 
 if __name__ == "__main__":
     start = time.clock()
