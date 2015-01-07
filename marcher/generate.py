@@ -38,7 +38,11 @@ def read_definition(definition):
 def find_starting_points(x, y, pixels):
     start = time.time()
     print ("Begun searching for starting points")
-    
+
+    terrain = Image.open("terrain.bmp").convert("RGB")
+    terrain_pix = terrain.load()
+
+    water = (69,91,186)
     output = {}
 
     stop = False
@@ -47,7 +51,7 @@ def find_starting_points(x, y, pixels):
         for j in range(y):
             try:
                 output[pixels[i,j]]
-            except KeyError:
+            except KeyError:                
                 output[pixels[i,j]] = (i,j)
 
     delta = time.time() - start
@@ -61,6 +65,7 @@ def generate():
     start = time.time()
 
     img = Image.open("provinces.bmp")
+    #print img.format, img.mode
     pix = img.load()
 
     marcher = Marcher("provinces.bmp")
@@ -83,7 +88,7 @@ def generate():
     for prov in provs:
         i = i + 1
         
-        colour =  (int(prov[1]), int(prov[2]), int(prov[3]))
+        colour = (int(prov[1]), int(prov[2]), int(prov[3]))
         prov_id = int(prov[0])
         prov_name = prov[4]
         
@@ -133,4 +138,4 @@ if __name__ == "__main__":
     start = time.clock()
     generate()
     delta = time.clock() - start
-    print ("Generating image took %.3f seconds" %delta)
+    print ("Generating GeoJSON took %.3f seconds" %delta)
