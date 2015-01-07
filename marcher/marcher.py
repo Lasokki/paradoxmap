@@ -56,10 +56,11 @@ class Marcher(object):
 
         while stop == False:
 
-            if x >= 0 and x < self.img.size[0] and y >= 0 and y < self.img.size[1]:
-                yield (x,y)
-
             next_step = self.step(x, y, prev_step)
+
+            if x >= 0 and x < self.img.size[0] and y >= 0 and y < self.img.size[1]:
+                if next_step is not prev_step:
+                    yield (x,y)
 
             if next_step == 'u':
                 y = y-1
