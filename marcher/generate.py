@@ -80,16 +80,14 @@ def generate():
         print ("{}/{} {}".format(i, prov_numb, colour))
         marcher.colour = colour
 
-        if i == 872:
-            break
         try:
             sp = starting_points[colour]
             points = marcher.do_march(sp)
-
+            
             for p in points:
                 x = p[0]
                 y = p[1]
-                outpix[x,y] = (255,0,0)
+                outpix[x,y] = colour
         
         except KeyError:
             pass
