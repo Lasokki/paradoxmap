@@ -1,6 +1,6 @@
 var map = L.map('map', {
     crs: L.CRS.Simple
-}).setView([-175, 75], 2);
+}).setView([0, 0], 0);
 
 //height
 var sw = map.unproject([0,3072], map.getMinZoom());
@@ -92,7 +92,7 @@ function onEachFeature(feature, layer) {
     });
 }
 
-geojson = L.geoJson(provdata, {
+geojson = L.geoJson(ckii_provdata, {
     style: style,
     onEachFeature: onEachFeature
 }).addTo(map);
