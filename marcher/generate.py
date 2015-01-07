@@ -24,9 +24,11 @@ def read_definition(definition):
                        "Firth", "Lake", "Saimaa", "The ", "bank", "Manche", "Islas", "Ponant",
                        "Indus", "Ganges", "Brahmaputra", "Seine", "Loire", "Garonne", "Danube", 
                        "Iskender", "Western", "East", "Nile Delta", "Levant", "Elbe", "Rhine", 
-                       "Vistula", "Kattegat", "Waddenzee", "Daugava", "Volga", "Svir", "Neva", "Don", 
-                       "Desna", "Oka", "Lovat", "Volkhov", "Dni", "Dny", "Dne", "Pripyat", "Toropets",
-                       "Dwina", "Kallavesi", "Bodensee"]
+                       "Vistula", "Kattegat", "Waddenzee", "Daugava", "Volga1", "Volga2", "Volga3", 
+                       "Volga4", "Volga5", "Volga6", "Volga7", "Volga8", "Volga9", "Svir", "Neva", "Don1",
+                       "Don2", "Don3", "Don4", "Desna", "Oka", "Lovat", "Volkhov", "Dniester", 
+                       "Dnieper1", "Dnieper2", "Dnieper3", "Dny", "Dne", "Pripyat", "Dwina", "Kallavesi", "Bodensee"]
+
     #Näsijärvi, Oulujärvi, Hjälmaren, Vättern, Vänern, Onega, Päijänne, some lake in Siberia, spots in the Indian Ocean
     skip_id = [943, 957, 961, 962, 963, 997, 1018, 1293, 1305, 1412]
 
