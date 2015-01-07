@@ -1,6 +1,6 @@
 var map = L.map('map', {
     crs: L.CRS.Simple
-}).setView([0, 0], 0);
+}).setView([-800, 800], 0);
 
 //height
 var sw = map.unproject([0,3072], map.getMinZoom());
@@ -11,7 +11,7 @@ var ne = map.unproject([2048,0], map.getMinZoom());
 
 L.tileLayer('', {
     minZoom: 0,
-    maxZoom: 6,
+    maxZoom: 2,
     attribution: 'Paradox Interactive / Erkki Mattila',
     tms: true,
     continuousWorld: true
