@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Program for generating a GeoJSON-file from provinces.bmp.
 
@@ -16,6 +18,18 @@ def read_definition(definition):
 
     provs = []
 
+    # Stuff to skip
+    seas_and_rivers = ["Gulf", "Sea", "SEA", "Golf", "Biscay", "Donegal", "Galway", "Coast", "Cabo", 
+                       "Strait", "Cote", "Atlantic", "Faroya", "Hav", "bukten", "Occe", "Channel",
+                       "Firth", "Lake", "Saimaa", "The ", "bank", "Manche", "Islas", "Ponant",
+                       "Indus", "Ganges", "Brahmaputra", "Seine", "Loire", "Garonne", "Danube", 
+                       "Iskender", "Western", "East", "Nile Delta", "Levant", "Elbe", "Rhine", 
+                       "Vistula", "Kattegat", "Waddenzee", "Daugava", "Volga", "Svir", "Neva", "Don", 
+                       "Desna", "Oka", "Lovat", "Volkhov", "Dni", "Dny", "Dne", "Pripyat", "Toropets",
+                       "Dwina", "Kallavesi"]
+    #Näsijärvi, Oulujärvi, Onega, Päijänne, spots in the Indian Ocean
+    skip_id = [943, 957, 997, 1018, 1293, 1412]
+
     csv.register_dialect('ckii', delimiter=';', quoting=csv.QUOTE_NONE)
 
     with open(definition, 'rb') as f:
@@ -24,10 +38,20 @@ def read_definition(definition):
         for row in reader:
             if len(row) > 3 and row[0] != '':
                 try:
-                    r = int(row[1])
-                    g = int(row[2])
-                    b = int(row[3])
-                    provs.append(row)
+                    prov_id = int(row[0])
+                    prov_name = row[4]
+                    allow = True
+
+                    for skip_name in seas_and_rivers:
+                        if prov_id in skip_id or prov_name.find(skip_name) != -1:
+                            allow = False
+                            break
+
+                    if allow:    
+                        r = int(row[1])
+                        g = int(row[2])
+                        b = int(row[3])
+                        provs.append(row)
                 except ValueError:
                     pass
 
