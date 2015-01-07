@@ -38,7 +38,7 @@ info.addTo(map);
 
 function getColor(n) {
     return n == "" ? "black" :
-	'red';
+	'maroon';
 }
 
 function style(feature) {
@@ -58,7 +58,7 @@ function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 3,
+        weight: 1,
         color: 'red',
         dashArray: '',
         fillOpacity: 1
