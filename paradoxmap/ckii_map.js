@@ -28,8 +28,8 @@ info.onAdd = function (map) {
     return this._div;
 };
 
-info.update = function (props) {
-    this._div.innerHTML = '<h4>Töki ja klikkaa monikulmiota, niin näet jotain</h4>' +  (props ? props.name: "");
+info.update = function (props, id) {
+    this._div.innerHTML = '<h4>Töki ja klikkaa monikulmiota, niin näet jotain</h4>' +  (props ? props.name: "") + '<br>' + (id ? id: "");
 };
 
 info.addTo(map);
@@ -70,7 +70,7 @@ function highlightFeature(e) {
     if (!L.Browser.ie && !L.Browser.opera) {
         layer.bringToFront();
     }
-    info.update(layer.feature.properties);
+    info.update(layer.feature.properties, layer.feature.id);
 }
 
 var geojson;
