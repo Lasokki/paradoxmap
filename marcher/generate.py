@@ -38,7 +38,8 @@ def read_definition(definition):
                        "Don2", "Don3", "Don4", "Desna", "Oka", "Lovat", "Volkhov", "Dniester", 
                        "Dnieper1", "Dnieper2", "Dnieper3", "Dnipro", "Dny", "Dne", "Pripyat", "Dwina", "Kallavesi", "Bodensee"]
 
-    #Näsijärvi, Oulujärvi, Mälaren, Hjälmaren, Vättern, Vänern, Onega, Päijänne, some lake in Siberia, spots in the Indian Ocean
+    #Näsijärvi, Oulujärvi, Mälaren, Hjälmaren, Vättern, Vänern, Onega, Päijänne, some unnamed lake in Siberia, unnamed spots in the Indian Ocean.
+    #The names contain unicode characters and I'm skipping them this way, because I'm lazy.
     skip_id = [943, 957, 959, 961, 962, 963, 997, 1018, 1293, 1305, 1412]
 
     csv.register_dialect('ckii', delimiter=';', quoting=csv.QUOTE_NONE)
@@ -57,7 +58,7 @@ def read_definition(definition):
                         if prov_id in skip_id or prov_name.find(skip_name) != -1:
                             allow = False
                             break
-
+                    # Try to get rgb-colours from fields.
                     if allow:    
                         r = int(row[1])
                         g = int(row[2])
