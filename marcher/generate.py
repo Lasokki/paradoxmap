@@ -107,6 +107,7 @@ def generate():
     """
 
     print ("Begun generating image")
+    #Benchmarking
     start = time.time()
 
     img = Image.open("provinces.bmp")
@@ -117,14 +118,17 @@ def generate():
     provs = read_definition("definition.csv")
     starting_points = find_starting_points(img.size[0], img.size[1], pix)
 
+    #Counter for statistics and GeoJSON-formatting .
+    #Features in list are delimited with a comma, but the first item isn't preceed with one.
     i = 0
+    
+    #Statistics
     prov_count = len(provs)
-
     max_perimeter = 0
     min_perimeter = 0
     pix_count = 0
 
-
+    #Open writer and the beginning of the file
     f = open("ckii_provdata.js", 'w')
     f.write('var ckii_provdata = {"type":"FeatureCollection", "features":[') 
 
@@ -153,9 +157,11 @@ def generate():
                 else:
                     points_string = points_string + ',[{}, {}]'.format(x,y)
 
+                #Statistics
                 pix_count = pix_count + 1
                 perimeter = perimeter + 1
 
+            # Format string and write it to file
             prov_string = '{"type":"Feature","id":"' + str(prov_id) + '","properties":{"name":"' + prov_name + '"},"geometry":{"type":"Polygon","coordinates":[[' + points_string + ']]}}'
 
             if i == 1:
@@ -163,6 +169,7 @@ def generate():
             else:
                 f.write(',' + prov_string)
 
+            # Statistics
             if perimeter < min_perimeter:
                 min_perimeter = perimeter
             if perimeter > max_perimeter:
@@ -170,11 +177,15 @@ def generate():
             if i == 1:
                 min_perimeter = max_perimeter
 
+        #If there is no starting point, skip
         except KeyError:
             pass
 
+    #Close the file with closing brackets of features and var ckii_provdata
     f.write(']};')
     f.close
+
+    #Output statistics
     print("Pixels in outlines: {}\nLongest perimeter: {}\nShortest perimeter: {}".format(pix_count, max_perimeter, min_perimeter))
 
 if __name__ == "__main__":
