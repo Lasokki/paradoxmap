@@ -65,10 +65,6 @@ def find_starting_points(x, y, pixels):
     start = time.time()
     print ("Begun searching for starting points")
 
-    terrain = Image.open("terrain.bmp").convert("RGB")
-    terrain_pix = terrain.load()
-
-    water = (69,91,186)
     output = {}
 
     stop = False
@@ -91,12 +87,10 @@ def generate():
     start = time.time()
 
     img = Image.open("provinces.bmp")
-    #print img.format, img.mode
     pix = img.load()
 
     marcher = Marcher("provinces.bmp")
 
-    out = "prov_out.bmp"
     provs = read_definition("definition.csv")
     starting_points = find_starting_points(img.size[0], img.size[1], pix)
 
