@@ -12,6 +12,15 @@ import Image, time, csv
 from marcher import Marcher
 
 def read_definition(definition):
+    """Function for reading valid rows from definition.csv.
+    Seas, lakes and rivers are skipped as uninteresting.
+    The file also contains some empty (or reserved) colours, which are skipped.
+
+    Returns a list of interesting rows.
+
+    Arguments:
+    definition -- path to definition.csv
+    """
 
     start = time.time()
     print "Reading definition.csv"
@@ -61,7 +70,16 @@ def read_definition(definition):
     print ("Reading definition.csv took %.3f seconds" %delta)
     return provs
 
-def find_starting_points(x, y, pixels):
+def find_starting_points(width, height, pixels):
+    """Iterates through provinces.bmp and maps the first instance of a colour to a x,y-coordinate.
+    
+    Returns a dict of starting points.
+
+    Arguments:
+    width and height -- dimensions of the target image
+    pixels -- pixel map of the image
+    """
+
     start = time.time()
     print ("Begun searching for starting points")
 
@@ -69,8 +87,8 @@ def find_starting_points(x, y, pixels):
 
     stop = False
     
-    for i in range(x):    # for every pixel:
-        for j in range(y):
+    for i in range(width):    # for every pixel:
+        for j in range(height):
             try:
                 output[pixels[i,j]]
             except KeyError:                
@@ -82,6 +100,11 @@ def find_starting_points(x, y, pixels):
     return output
 
 def generate():
+    """Function for running the show.
+    It loads provinces.bmp, initializes marcher and calls subfunctions.
+    
+    Outputs a GeoJSON-file, which contains land provinces as polygons.
+    """
 
     print ("Begun generating image")
     start = time.time()
