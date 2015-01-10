@@ -131,7 +131,7 @@ def generate():
 
     #Open writer and the beginning of the file
     f = open("ckii_provdata.js", 'w')
-    f.write('var ckii_provdata = {"type":"FeatureCollection", "features":[') 
+    f.write('var ckii_provdata = {"type":"FeatureCollection","features":[') 
 
     for prov in provs:
         i = i + 1
@@ -154,9 +154,9 @@ def generate():
                 y = -p[1]
                 
                 if points_string == "":
-                    points_string = points_string + '[{}, {}]'.format(x, y)
+                    points_string = points_string + '[{},{}]'.format(x, y)
                 else:
-                    points_string = points_string + ',[{}, {}]'.format(x,y)
+                    points_string = points_string + ',[{},{}]'.format(x,y)
 
                 #Statistics
                 pix_count = pix_count + 1
