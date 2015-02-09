@@ -15,6 +15,7 @@ body {
 
 .quotation {
     font-style: italic;
-    margin-left: 10px;
-    margin-right: 10px;
+    padding: 10px 10px 10px 10px;
+    background-color: #E8E8E8;
+    border-radius: 10px;
 }
