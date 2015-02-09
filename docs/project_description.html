@@ -65,13 +65,21 @@
 
     <h1>Problem</h1>
     <p>
-      As stated before, the game map is divided into provinces. Shapes and locations of provinces are defined in a 3072 by 2048 <a href="http://www.ckiiwiki.com/Provinces.bmp">bitmap image</a>, where each of them has a unique colour.
+      Leaflet supports drawing shapes from <a href="http://geojson.org/">GeoJSON</a> files and accessing them easily, as <a href="http://leafletjs.com/examples/choropleth.html">this tutorial</a> shows.
     </p>
-    <img src="provinces_scaled.png" alt="Scaled image of provinces.bmp" width="600" height="400"/>
     <p>
-      Colours are linked to ID-numbers and names in <a href="http://www.ckiiwiki.com/Definition.csv">definition.csv</a>.
+      Map modding and game resources have been <a href="http://www.ckiiwiki.com/Map_modding">documented</a> extensively in the wiki, helping me greatly in forming the problem.
     </p>
-    
+    <p>
+      As stated before, the game map is divided into provinces. Shapes and locations of provinces are defined in a 3072 by 2048 <a href="http://www.ckiiwiki.com/Provinces.bmp">bitmap image</a>, where each of them has a unique colour. Colours are linked to ID-numbers and names in <a href="http://www.ckiiwiki.com/Definition.csv">definition.csv</a>.
+    </p>
+    <p>
+      Therefore, my first problem was to turn this image
+    </p>
+    <img src="provinces_scaled.png" alt="Scaled image of provinces.bmp" width="600" height="400" class="center"/>
+    <p>
+      Into a collection of features in a GeoJSON-file, where each feature consists of a name, ID and a polygon defining the borders of a province. (Side note: some provinces are not connected components, so I should actually use a multipolygon)
+    </p>
   </div>
 </body>
 </html>
