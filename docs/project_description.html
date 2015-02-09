@@ -5,73 +5,73 @@
   <link rel="stylesheet" href="desc.css"/>
 </head>
 <body>
+  <div class="content">
+    <h1>Contents</h1>
 
-  <h1>Contents</h1>
-
-  <h1>Purpose of this document</h1>
-  <p>
-    The intention of this document is to describe an interactive map project for Crusader Kings II. The project is an exercise in reverse engineering, image processing, learning how to use Leaflet, and web development.
-  </p>
-  <p>
-    Screenshots of the game and resource files portray works by developers at Paradox Interactive -
-    I claim no authorship nor ownership of them.
-  </p>
-
-  <h1>Premise - Crusader Kings II</h1>
-  <p>
-    Description of the game from <a href="http://en.wikipedia.org/wiki/Crusader_Kings_II">Wikipedia</a>:
-  </p>
-  <div class="quotation">
+    <h1>Purpose of this document</h1>
     <p>
-      The game is a dynasty simulator where the player controls a Medieval dynasty from 1066 to 1453, though the DLC The Old Gods and Charlemagne allow for a start date of 867 and 769, respectively. Through the strategic use of war, marriages and assassinations among many other things, the player works to achieve success for his or her dynasty. The simulation is open-ended so the definition of 'success' is completely defined by the player.
-    </p>
-  </div>
-  <p>
-    [SCREENSHOT OF THE GAME]
-  </p>
-
-  <h2>Conception</h2>
-  <p>
-    In November 2014 Paradox Interactive announced that it will introduce an official wiki service <a href="http://forum.paradoxplaza.com/forum/showthread.php?817542-Announcing-the-launch-of-the-Offical-Paradox-Wiki-Service&s=b5a86e76fcc87551a1384274b3af7c53">in this thread</a>. As formerly community maintained wiki was now part of official customer service, a forum user posted this message:
-  </p>
-  
-  <div class="quotation">
-    <p>
-      OK, so this is a random request, but I think it would be a really great addition to the wiki that wouldn't be too much of a stretch for you guys to add since you're running it now. A fully interactive version of the in game maps that lets you switch between the various start dates, zoom in and out, switch map modes, etc. At the moment, it's really annoying how if I want to look at the name or shape of a province (say for posting and/or reading something on the subreddit for eu4) I have to spend the time opening the game (which on a crappy computer like mine takes a while) it would be super helpful if I could just access the map online!
+      The intention of this document is to describe an interactive map project for Crusader Kings II. The project is an exercise in reverse engineering, image processing, learning how to use Leaflet, and web development.
     </p>
     <p>
-      blazerboy @ 18-11-2014 11:38
+      Screenshots of the game and resource files portray works by developers at Paradox Interactive -
+      I claim no authorship nor ownership of them.
     </p>
-  </div>
-  <p>
-    The former administrator (now a Paradox employee) responded in the same thread:
-  </p>
 
-  <div class="quotation">
+    <h1>Premise - Crusader Kings II</h1>
     <p>
-      You wouldn't believe how complicated that is compared to the current functions of the wikis. Though it would be kind of awesome regardless, it isn't something that's simple to do.
+      Description of the game from <a href="http://en.wikipedia.org/wiki/Crusader_Kings_II">Wikipedia</a>:
     </p>
+    <div class="quotation">
+      <p>
+	The game is a dynasty simulator where the player controls a Medieval dynasty from 1066 to 1453, though the DLC The Old Gods and Charlemagne allow for a start date of 867 and 769, respectively. Through the strategic use of war, marriages and assassinations among many other things, the player works to achieve success for his or her dynasty. The simulation is open-ended so the definition of 'success' is completely defined by the player.
+      </p>
+    </div>
     <p>
-      Meneth @ 18-11-2014 11:40 
+      [SCREENSHOT OF THE GAME]
     </p>
-  </div>
-  <p>
-    Hmm, is it actually?
-  </p>
 
-  <p>
-    A few days later, I came across <a href="https://news.ycombinator.com/item?id=8649617">a thread</a> on Hacker News describing a Minecraft world, that had been played for three and half years. From this thread I then learned about the existence of <a href="http://leafletjs.com/">Leaflet</a>. As I checked out the tutorials, I got a feeling that an interactive map for the wiki might actually be something that I could do.
-  </p>
-
-  <h1>Problem</h1>
-  <p>
-    As stated before, the game map is divided into provinces. Shapes and locations of provinces are defined in a 3072 by 2048 <a href="http://www.ckiiwiki.com/Provinces.bmp">bitmap image</a>, where each of them has a unique colour.
-  </p>
-  <img src="provinces_scaled.png"/>
-  <p>
-    Colours are linked to ID-numbers and names in <a href="http://www.ckiiwiki.com/Definition.csv">definition.csv</a>.
-  </p>
+    <h2>Conception</h2>
+    <p>
+      In November 2014 Paradox Interactive announced that it will introduce an official wiki service <a href="http://forum.paradoxplaza.com/forum/showthread.php?817542-Announcing-the-launch-of-the-Offical-Paradox-Wiki-Service&s=b5a86e76fcc87551a1384274b3af7c53">in this thread</a>. As formerly community maintained wiki was now part of official customer service, a forum user posted this message:
+    </p>
     
-  </p>
+    <div class="quotation">
+      <p>
+	OK, so this is a random request, but I think it would be a really great addition to the wiki that wouldn't be too much of a stretch for you guys to add since you're running it now. A fully interactive version of the in game maps that lets you switch between the various start dates, zoom in and out, switch map modes, etc. At the moment, it's really annoying how if I want to look at the name or shape of a province (say for posting and/or reading something on the subreddit for eu4) I have to spend the time opening the game (which on a crappy computer like mine takes a while) it would be super helpful if I could just access the map online!
+      </p>
+      <p>
+	blazerboy @ 18-11-2014 11:38
+      </p>
+    </div>
+    <p>
+      The former administrator (now a Paradox employee) responded in the same thread:
+    </p>
+
+    <div class="quotation">
+      <p>
+	You wouldn't believe how complicated that is compared to the current functions of the wikis. Though it would be kind of awesome regardless, it isn't something that's simple to do.
+      </p>
+      <p>
+	Meneth @ 18-11-2014 11:40 
+      </p>
+    </div>
+    <p>
+      Hmm, is it actually?
+    </p>
+
+    <p>
+      A few days later, I came across <a href="https://news.ycombinator.com/item?id=8649617">a thread</a> on Hacker News describing a Minecraft world, that had been played for three and half years. From this thread I then learned about the existence of <a href="http://leafletjs.com/">Leaflet</a>. As I checked out the tutorials, I got a feeling that an interactive map for the wiki might actually be something that I could do.
+    </p>
+
+    <h1>Problem</h1>
+    <p>
+      As stated before, the game map is divided into provinces. Shapes and locations of provinces are defined in a 3072 by 2048 <a href="http://www.ckiiwiki.com/Provinces.bmp">bitmap image</a>, where each of them has a unique colour.
+    </p>
+    <img src="provinces_scaled.png" alt="Scaled image of provinces.bmp" width="600" height="400"/>
+    <p>
+      Colours are linked to ID-numbers and names in <a href="http://www.ckiiwiki.com/Definition.csv">definition.csv</a>.
+    </p>
+    
+  </div>
 </body>
 </html>
