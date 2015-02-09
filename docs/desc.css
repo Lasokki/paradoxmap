@@ -1,3 +1,18 @@
+body {
+    font-family: sans-serif;
+    background-color: teal;
+}
+
+.content {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 10px;
+    text-align: left;
+    padding: 25px 50px 25px 50px;
+}
+
 .quotation {
     font-style: italic;
     margin-left: 10px;
