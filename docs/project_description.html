@@ -7,8 +7,14 @@
 <body>
   <div class="content">
     <h1>Contents</h1>
+    <ul>
+      <li><a href="#purpose">Purpose of this document</a></li>
+      <li><a href="#premise">Premise</a></li>
+      <li><a href="#conception">Conception</a></li>
+      <li><a href="#problem">Problem</a></li>
+    </ul>
 
-    <h1>Purpose of this document</h1>
+    <h1 id="purpose">Purpose of this document</h1>
     <p>
       The intention of this document is to describe an interactive map project for Crusader Kings II. The project is an exercise in reverse engineering, image processing, learning how to use Leaflet, and web development.
     </p>
@@ -17,7 +23,7 @@
       I claim no authorship nor ownership of them.
     </p>
 
-    <h1>Premise - Crusader Kings II</h1>
+    <h1 id="premise">Premise - Crusader Kings II</h1>
     <p>
       Description of the game from <a href="http://en.wikipedia.org/wiki/Crusader_Kings_II">Wikipedia</a>:
     </p>
@@ -30,7 +36,7 @@
       [SCREENSHOT OF THE GAME]
     </p>
 
-    <h2>Conception</h2>
+    <h2 id="conception">Conception</h2>
     <p>
       In November 2014 Paradox Interactive announced that it will introduce an official wiki service <a href="http://forum.paradoxplaza.com/forum/showthread.php?817542-Announcing-the-launch-of-the-Offical-Paradox-Wiki-Service&s=b5a86e76fcc87551a1384274b3af7c53">in this thread</a>. As formerly community maintained wiki was now part of official customer service, a forum user posted this message:
     </p>
@@ -63,7 +69,7 @@
       A few days later, I came across <a href="https://news.ycombinator.com/item?id=8649617">a thread</a> on Hacker News describing a Minecraft world, that had been played for three and half years. From this thread I then learned about the existence of <a href="http://leafletjs.com/">Leaflet</a>. As I checked out the tutorials, I got a feeling that an interactive map for the wiki might actually be something that I could do.
     </p>
 
-    <h1>Problem</h1>
+    <h1 id="problem">Problem</h1>
     <p>
       Leaflet supports drawing shapes from <a href="http://geojson.org/">GeoJSON</a> files and accessing them easily, as <a href="http://leafletjs.com/examples/choropleth.html">this tutorial</a> shows.
     </p>
@@ -76,7 +82,7 @@
     <p>
       Therefore, my first problem was to turn this image
     </p>
-    <img src="provinces_scaled.png" alt="Scaled image of provinces.bmp" width="600" height="400" class="center"/>
+    <a href="provinces_scaled.png"><img src="provinces_scaled.png" alt="Scaled image of provinces.bmp" width="600" height="400"/></a>
     <p>
       Into a collection of features in a GeoJSON-file, where each feature consists of a name, ID and a polygon defining the borders of a province. (Side note: some provinces are not connected components, so I should actually use a multipolygon)
     </p>
