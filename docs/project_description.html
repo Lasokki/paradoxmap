@@ -12,6 +12,7 @@
       <li><a href="#premise">Premise</a></li>
       <li><a href="#conception">Conception</a></li>
       <li><a href="#problem">Problem</a></li>
+      <li><a href="#todo">TODO</a></li>
     </ul>
 
     <h1 id="purpose">Purpose of this document</h1>
@@ -19,7 +20,7 @@
       This document describes an interactive map project for Crusader Kings II - a game running on Clausewitz engine, developed by Paradox Development Studio. The project is an exercise in reverse engineering, image processing, using Leaflet, and web development.
     </p>
     <p>
-      Everything you see is still work in progress.
+      Everything you see is still work in progress, including this page.
     </p>
     <p>
       Screenshots of the game and resource files portray works by developers at Paradox Interactive -
@@ -37,7 +38,7 @@
     </div>
 
     <p>
-      197 year difference between starting dates means quite radical changes on map. Petty kingdoms coalesce into mighty realms, vassals break free from their masters, nomadic tribes settle down and so on.
+      197 years between starting dates means quite radical changes on map. Petty kingdoms coalesce into mighty realms, vassals break free from their masters, nomadic tribes settle down and so on.
     </p>
     <div class="screenshots">
       <a href="screenshots/realms_867.jpg"><img src="screenshots/realms_867.jpg" width="320" height="200"/></a>
@@ -121,6 +122,27 @@
     <a href="provinces_scaled.png"><img src="provinces_scaled.png" alt="Scaled image of provinces.bmp" width="600" height="400"/></a>
     <p>
       Into a collection of features in a GeoJSON-file, where each feature consists of a name, ID and a polygon defining the borders of a province. (Side note: some provinces are not connected components, so I should actually use a multipolygon)
+    </p>
+    <p>
+      Polygons defined as an array of point pairs. Drawing them is simple - start from the first pair, draw a line to the second pair and so on. From the last pair a line is drawn to the first pair, thus completing the polygon. Therefore, if we want to define outlines of a province as a polygon, we need to get all points on the border in order.
+    </p>
+    <p>
+      This requirement excludes using for example a flood fill to find border pixels. My solution is to use a variant of <a href="http://en.wikipedia.org/wiki/Marching_squares">marching squares algorithm</a>, implemented in <a href="https://github.com/Lasokki/paradoxmap/blob/master/marcher/marcher.py">marcher.py</a>
+    </p>
+
+    <h1 id="todo">TODO</h1>
+    <p>
+      The project is not yet finished. Thus far, I have managed to create the GeoJSON, but it is merely a template. My next challenge is to collect data from various plaintext files that have been scattered in the game folder. This data includes:
+    </p>
+    <ul>
+      <li>Characters for each starting date and their vassal-liege -connections</li>
+      <li>De jure titles</li>
+      <li>Culture for each province</li>
+      <li>Religion for each province</li>
+      <li>Information about holdings in each province</li>
+    </ul>
+    <p>
+      And some other stuff. I also have to add controls to the map and greatly improve its visual appeal. This document is also work in progress, so I'll have to keep it updated.
     </p>
   </div>
 </body>
