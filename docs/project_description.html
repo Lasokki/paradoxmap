@@ -16,7 +16,7 @@
 
     <h1 id="purpose">Purpose of this document</h1>
     <p>
-      The intention of this document is to describe an interactive map project for Crusader Kings II. The project is an exercise in reverse engineering, image processing, learning how to use Leaflet, and web development.
+      The intention of this document is to describe an interactive map project for Crusader Kings II - a game running on Clausewitz engine, developed by Paradox Development Studio. The project is an exercise in reverse engineering, image processing, learning how to use Leaflet, and web development.
     </p>
     <p>
       Screenshots of the game and resource files portray works by developers at Paradox Interactive -
@@ -32,25 +32,49 @@
 	The game is a dynasty simulator where the player controls a Medieval dynasty from 1066 to 1453, though the DLC The Old Gods and Charlemagne allow for a start date of 867 and 769, respectively. Through the strategic use of war, marriages and assassinations among many other things, the player works to achieve success for his or her dynasty. The simulation is open-ended so the definition of 'success' is completely defined by the player.
       </p>
     </div>
+
+    <p>
+      197 year difference between starting dates means quite radical changes on map. Petty kingdoms coalesce into mighty realms, vassals break free from their masters, nomadic tribes settle down and so on.
+    </p>
     <div class="screenshots">
       <a href="screenshots/realms_867.jpg"><img src="screenshots/realms_867.jpg" width="320" height="200"/></a>
       <a href="screenshots/realms_1066.jpg"><img src="screenshots/realms_1066.jpg" width="320" height="200"/></a>
+    </div>
+    <p>
+      For gameplay purposes the game map is divided into <strong>provinces</strong> (sometimes called &quot;counties&quot;). Player must (in general) directly control at least one province with her character. If the last province is lost, the game is over.
+    </p>
+    <div class="screenshots">
       <a href="screenshots/ingame_1.jpg"><img src="screenshots/ingame_1.jpg" width="320" height="200"/></a>
       <a href="screenshots/ingame_2.jpg"><img src="screenshots/ingame_2.jpg" width="320" height="200"/></a>
       <a href="screenshots/ingame_3.jpg"><img src="screenshots/ingame_3.jpg" width="320" height="200"/></a>
       <a href="screenshots/ingame_4.jpg"><img src="screenshots/ingame_4.jpg" width="320" height="200"/></a>
-      <a href="screenshots/ingame_5.jpg"><img src="screenshots/ingame_5.jpg" width="320" height="200"/></a>
-      <a href="screenshots/ingame_6.jpg"><img src="screenshots/ingame_6.jpg" width="320" height="200"/></a>
+    </div>
+    <p>
+      As the game takes place in a feudal society, characters are ranked in a hierarchy. From lowest to highest, the playable ranks are count, duke, king and emperor. A character can hold multiple titles. Developers have included different map modes in a pre-game character selection screen, such as &quot;independent realms&quot;, &quot;counts&quot; and &quot;dukes&quot;. This allows, for example, a player to pick a powerful independent duke for an easy game.
+    </p>
+    <div class="screenshots">
       <a href="screenshots/realms_sweden.jpg"><img src="screenshots/realms_sweden.jpg" width="320" height="200"/></a>
       <a href="screenshots/counts_sweden.jpg"><img src="screenshots/counts_sweden.jpg" width="320" height="200"/></a>
       <a href="screenshots/dukes_sweden.jpg"><img src="screenshots/dukes_sweden.jpg" width="320" height="200"/></a>
+    </div>
+    
+    <p>
+      No medieval game would be complete without some depiction religion and culture. Western Eurasia was a tumultous part of the world, where Abrahamic religions <a href="http://www.bookdepository.com/Making-Europe-Robert-Bartlett/9780140154092">expanded</a> into new areas, Arabs invaded Iberian peninsula and Christians crusaded against Muslims. Therefore, provinces carry information about the current dominant culture and religion, which affect gameplay in various ways.
+    </p>
+    <div class="screenshots">
       <a href="screenshots/cultures_867.jpg"><img src="screenshots/cultures_867.jpg" width="320" height="200"/></a>
       <a href="screenshots/religions_867.jpg"><img src="screenshots/religions_867.jpg" width="320" height="200"/></a>
+      <a href="screenshots/ingame_5.jpg"><img src="screenshots/ingame_5.jpg" width="320" height="200"/></a>
+      <a href="screenshots/ingame_6.jpg"><img src="screenshots/ingame_6.jpg" width="320" height="200"/></a>
     </div>
+
+    <p>
+      As we can see, the game is loaded with a vast amount of information, and that players need easy ways to access it. Developers at Paradox have made a great job of including different map modes to the game. Furthermore, players have collected information to <a href="http://www.ckiiwiki.com/Crusader_Kings_II_Wiki">a wiki service</a>
+    </p>
 
     <h1 id="conception">Conception</h1>
     <p>
-      In November 2014 Paradox Interactive announced that it will introduce an official wiki service <a href="http://forum.paradoxplaza.com/forum/showthread.php?817542-Announcing-the-launch-of-the-Offical-Paradox-Wiki-Service&s=b5a86e76fcc87551a1384274b3af7c53">in this thread</a>. As formerly community maintained wiki was now part of official customer service, a forum user posted this message:
+      In November 2014 Paradox Interactive <a href="http://forum.paradoxplaza.com/forum/showthread.php?817542-Announcing-the-launch-of-the-Offical-Paradox-Wiki-Service&s=b5a86e76fcc87551a1384274b3af7c53">announced</a> that it will take control of formerly community maintained wikis. As CKII Wiki was now part of official customer service, a forum user posted this message:
     </p>
     
     <div class="quotation">
@@ -73,12 +97,9 @@
 	Meneth @ 18-11-2014 11:40 
       </p>
     </div>
-    <p>
-      Hmm, is it actually?
-    </p>
 
     <p>
-      A few days later, I came across <a href="https://news.ycombinator.com/item?id=8649617">a thread</a> on Hacker News describing a Minecraft world, that had been played for three and half years. From this thread I then learned about the existence of <a href="http://leafletjs.com/">Leaflet</a>. As I checked out the tutorials, I got a feeling that an interactive map for the wiki might actually be something that I could do.
+      A few days later, I came across <a href="https://news.ycombinator.com/item?id=8649617">a thread</a> on Hacker News showcasing a Minecraft world that had been played for three and half years. The link in the opening post leads to a map of the worl, made with <a href="http://leafletjs.com/">Leaflet</a>. As I checked out the tutorials, I got a feeling that an interactive map for the wiki might actually be something that I could do.
     </p>
 
     <h1 id="problem">Problem</h1>
