@@ -8,7 +8,8 @@ This is the main file responsible for running the show.
 Author: Erkki Mattila, 2014-2015
 """
 
-import Image, time, csv
+from PIL import Image
+import time, csv
 from marcher import Marcher
 
 def read_definition(definition):
@@ -23,7 +24,7 @@ def read_definition(definition):
     """
 
     start = time.time()
-    print "Reading definition.csv"
+    print("Reading definition.csv")
 
     provs = []
 
@@ -44,7 +45,7 @@ def read_definition(definition):
 
     csv.register_dialect('ckii', delimiter=';', quoting=csv.QUOTE_NONE)
 
-    with open(definition, 'rb') as f:
+    with open(definition, 'r') as f:
         reader = csv.reader(f, 'ckii')
 
         for row in reader:

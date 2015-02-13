@@ -1,4 +1,4 @@
-import Image
+from PIL import Image
 
 # Dict of 14 of the 16 possible directions. Cases 6 and 9 are in step()
 directions = {
@@ -55,7 +55,7 @@ class Marcher(object):
             points = self.walk_perimeter(start_x, start_y)
 
         else:
-            print "Error: no colour set for marcher!"
+            print ("Error: no colour set for marcher!")
         return points
 
     def walk_perimeter(self, start_x, start_y):
