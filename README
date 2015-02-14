@@ -1,8 +1,10 @@
-An interactive map for Crusader Kings II.
+### Paradoxmap
 
-The map runs on leaflet.js
+An interactive map for Crusader Kings II, running on Leaflet.
 
-Subfolders:
--paradoxmap: contains the webpage and Javascript-files 
--marcher: a component for generating a GeoJSON file from a RGB bitmap that 
-	  comes with Crusader Kings II (provinces.bmp)
+### Folders
+* paradoxmap: Web page and associated JavaScripts
+* generators: Scripts for parsing game resources
+	  
+## LICENSE
+See LICENSE for license rights and limitations (MIT)
