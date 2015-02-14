@@ -2,11 +2,6 @@ var map = L.map('map', {
     crs: L.CRS.Simple
 }).setView([-800, 800], 0);
 
-//height
-var sw = map.unproject([0,3072], map.getMinZoom());
-//width
-var ne = map.unproject([2048,0], map.getMinZoom());
-
 //map.setMaxBounds(new L.LatLngBounds(sw, ne));
 
 L.tileLayer('', {
@@ -36,14 +31,16 @@ info.addTo(map);
 
 // GeoJSON-STUFF
 
-function getColor(n) {
+function getColor(n, culture) {
     return n == "" ? "black" :
-	'maroon';
+	culture == "finnish" ? "blue" :
+	culture == "norse" ? "yellow" :
+	"maroon";
 }
 
 function style(feature) {
     return {
-	fillColor: getColor(feature.properties.name),
+	fillColor: getColor(feature.properties.name, cultures[feature.id]),
         weight: 2,
         opacity: 1,
         color: 'maroon',
