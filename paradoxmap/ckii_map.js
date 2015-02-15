@@ -32,7 +32,7 @@ info.addTo(map);
 // GeoJSON-STUFF
 
 function getColor(n, culture) {
-    return n == "" ? "maroon" :
+    return n == "" ? "black" :
 	culture_colours[culture];
 }
 
