@@ -38,7 +38,7 @@ mapmodes.onAdd = function(map) {
 };
 
 mapmodes.update = function() {
-    this._div.innerHTML = '<button onClick="showReligions()">Religions</button><button onClick="showCultures()">Cultures</button>';
+    this._div.innerHTML = '<p>Religions</p><button onClick="showReligions()">Religions</button><button onClick="showCultures()">Cultures</button>';
 };
 
 //mapmodes.setPosition('');
@@ -47,10 +47,12 @@ info.addTo(map);
 
 function showCultures() {
     geojson.setStyle(style_cultures);
+    mapmodes._div.childNodes[0].innerHTML = "Cultures"
 }
 
 function showReligions() {
     geojson.setStyle(style_religions);
+    mapmodes._div.childNodes[0].innerHTML = "Religions"
 }
 
 // GeoJSON-STUFF
