@@ -76,9 +76,9 @@ function style_religions(feature) {
 	fillColor: getReligionColours(feature.properties.name, religions[feature.id]),
         weight: 2,
         opacity: 1,
-        color: 'maroon',
+        color: '#3B3B3B',
         dashArray: '3',
-        fillOpacity: 0.9
+        fillOpacity: 1.0
     };
 }
 
@@ -87,9 +87,9 @@ function style_cultures(feature) {
 	fillColor: getCultureColours(feature.properties.name, cultures[feature.id]),
         weight: 2,
         opacity: 1,
-        color: 'maroon',
+        color: '#3B3B3B',
         dashArray: '3',
-        fillOpacity: 0.9
+        fillOpacity: 1.0
     };
 }
 
@@ -97,7 +97,7 @@ function highlightFeature(e) {
     var prov = e.target;
 
     prov.setStyle({
-        weight: 1,
+        weight: 2,
         color: 'red',
         dashArray: '',
         fillOpacity: 1
