@@ -2,8 +2,6 @@ var map = L.map('map', {
     crs: L.CRS.Simple
 }).setView([-800, 800], 0);
 
-//map.setMaxBounds(new L.LatLngBounds(sw, ne));
-
 L.tileLayer('', {
     minZoom: 0,
     maxZoom: 2,
@@ -13,7 +11,7 @@ L.tileLayer('', {
 }).addTo(map);
 
 
-// Controls
+// Mapmode changer, information box
 
 var info = L.control();
 
@@ -38,26 +36,30 @@ mapmodes.onAdd = function(map) {
 };
 
 mapmodes.update = function() {
-    this._div.innerHTML = '<p>Religions</p><button onClick="showReligions()">Religions</button><button onClick="showCultures()">Cultures</button>';
+    this._div.innerHTML = '<h1>Map mode</h1><p>Religions</p><button onClick="showReligions()">Religions</button> <button onClick="showCultures()">Cultures</button>';
 };
 
-//mapmodes.setPosition('');
+mapmodes.setPosition('bottomright');
 mapmodes.addTo(map);
 info.addTo(map);
 
+var geojson = L.geoJson(ckii_provdata, {
+    style: style_religions,
+    onEachFeature: onEachFeature
+}).addTo(map);
+
 function showCultures() {
     geojson.setStyle(style_cultures);
-    mapmodes._div.childNodes[0].innerHTML = "Cultures"
+    mapmodes._div.childNodes[1].innerHTML = "Cultures"
     current_mapmode = "cultures"
 }
 
 function showReligions() {
     geojson.setStyle(style_religions);
-    mapmodes._div.childNodes[0].innerHTML = "Religions"
+    mapmodes._div.childNodes[1].innerHTML = "Religions"
     current_mapmode = "religions"
 }
 
-// GeoJSON-STUFF
 
 function getCultureColours(n, culture) {
     return n == "" ? "black" :
@@ -91,12 +93,10 @@ function style_cultures(feature) {
     };
 }
 
-// GeoJSON listeners
-
 function highlightFeature(e) {
-    var layer = e.target;
+    var prov = e.target;
 
-    layer.setStyle({
+    prov.setStyle({
         weight: 1,
         color: 'red',
         dashArray: '',
@@ -104,21 +104,19 @@ function highlightFeature(e) {
     });
 
     if (!L.Browser.ie && !L.Browser.opera) {
-        layer.bringToFront();
+        prov.bringToFront();
     }
-    info.update(layer.feature.properties, layer.feature.id, cultures[layer.feature.id], religions[layer.feature.id]);
+    info.update(prov.feature.properties, prov.feature.id, cultures[prov.feature.id], religions[prov.feature.id]);
 }
-
-var geojson;
 
 function resetHighlight(e) {
 
-    var layer = e.target;
+    var prov = e.target;
     
     if (current_mapmode == "cultures")
-	layer.setStyle(style_cultures(layer.feature));
+	prov.setStyle(style_cultures(prov.feature));
     else
-	layer.setStyle(style_religions(layer.feature));
+	prov.setStyle(style_religions(prov.feature));
 
     info.update();
 }
@@ -127,15 +125,10 @@ function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
 }
 
-function onEachFeature(feature, layer) {
-    layer.on({
+function onEachFeature(feature, prov) {
+    prov.on({
 	mouseover: highlightFeature,
 	mouseout: resetHighlight,
 	click: zoomToFeature
     });
 }
-
-geojson = L.geoJson(ckii_provdata, {
-    style: style_religions,
-    onEachFeature: onEachFeature
-}).addTo(map);
