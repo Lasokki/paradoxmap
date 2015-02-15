@@ -12,9 +12,9 @@ L.tileLayer('', {
     continuousWorld: true
 }).addTo(map);
 
-// Infothingie
 
-// Control, that shows stuff when hovered on
+// Controls
+
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -27,9 +27,9 @@ info.update = function (props, id, culture, religion) {
     this._div.innerHTML = '<a href="../paradoxmap_info/">What is this thing?</a><br><br><a href="https://github.com/Lasokki/paradoxmap">GitHub</a><br><h4>Click on a province to zoom in</h4>' + (props ? props.name: "") + '<br>' + (id ? id: "") + '<br>' + (culture ? culture: "") + '<br>' + (religion ? religion:"");
 };
 
-//info.addTo(map);
-
 var mapmodes = L.control();
+
+var current_mapmode = "religions";
 
 mapmodes.onAdd = function(map) {
     this._div = L.DomUtil.create('div', 'mapmode');
@@ -48,11 +48,13 @@ info.addTo(map);
 function showCultures() {
     geojson.setStyle(style_cultures);
     mapmodes._div.childNodes[0].innerHTML = "Cultures"
+    current_mapmode = "cultures"
 }
 
 function showReligions() {
     geojson.setStyle(style_religions);
     mapmodes._div.childNodes[0].innerHTML = "Religions"
+    current_mapmode = "religions"
 }
 
 // GeoJSON-STUFF
@@ -110,7 +112,14 @@ function highlightFeature(e) {
 var geojson;
 
 function resetHighlight(e) {
-    geojson.resetStyle(e.target);
+
+    var layer = e.target;
+    
+    if (current_mapmode == "cultures")
+	layer.setStyle(style_cultures(layer.feature));
+    else
+	layer.setStyle(style_religions(layer.feature));
+
     info.update();
 }
 
