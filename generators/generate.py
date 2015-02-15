@@ -155,7 +155,7 @@ def generate():
                 y = -p[1]
                 
                 if points_string == "":
-                    points_string = points_string + '[{},{}]'.format(x, y)
+                    points_string = points_string + '[{},{}]'.format(x,y)
                 else:
                     points_string = points_string + ',[{},{}]'.format(x,y)
 
