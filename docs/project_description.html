@@ -12,7 +12,9 @@
       <li><a href="#premise">Premise</a></li>
       <li><a href="#conception">Conception</a></li>
       <li><a href="#problem">Problem</a></li>
-      <li><a href="#todo">TODO</a></li>
+      <li><a href="#shapes">Shapes</a></li>
+      <li><a href="#resources">Resources/<a></li>
+      <li><a href="#todo">Todo</a></li>
     </ul>
 
     <h1 id="purpose">Purpose of this document</h1>
@@ -54,7 +56,7 @@
       <a href="screenshots/ingame_4.jpg"><img src="screenshots/ingame_4.jpg" width="320" height="200"/></a>
     </div>
     <p>
-      As the game takes place in a feudal society, characters are ranked in a hierarchy. From lowest to highest, the playable ranks are count, duke, king and emperor. A character can hold multiple titles. Developers have included different map modes in a pre-game character selection screen, such as &quot;independent realms&quot;, &quot;counts&quot; and &quot;dukes&quot;. This allows, for example, a player to pick a powerful independent duke for an easy game.
+      As the game takes place in a feudal society, characters are ranked in a hierarchy. From lowest to highest, the playable ranks are count, duke, king and emperor. A character can hold multiple titles. Developers have included different map modes in a pre-game character selection screen, such as <em>independent realms</em>, <em>counts</em> and <em>dukes</em>. This allows, for example, a player to pick a powerful independent duke for an easy game.
     </p>
     <div class="screenshots">
       <a href="screenshots/realms_sweden.jpg"><img src="screenshots/realms_sweden.jpg" width="320" height="200"/></a>
@@ -63,7 +65,7 @@
     </div>
     
     <p>
-      No medieval game would be complete without some depiction religion and culture. Western Eurasia was a tumultous part of the world, where Abrahamic religions <a href="http://www.bookdepository.com/Making-Europe-Robert-Bartlett/9780140154092">expanded</a> into new areas, Arabs invaded Iberian peninsula and Christians crusaded against Muslims. Therefore, provinces carry information about the current dominant culture and religion, which affect gameplay in various ways.
+      During the time period of the game,  Western Eurasia was a tumultous part of the world, where Abrahamic religions <a href="http://www.bookdepository.com/Making-Europe-Robert-Bartlett/9780140154092">expanded</a> into new areas, Arabs invaded Iberian peninsula and Christians crusaded against Muslims. Therefore, provinces carry information about the current dominant <strong>culture</strong> and <strong>religion</strong>, which are among the core mechanics of the game.
     </p>
     <div class="screenshots">
       <a href="screenshots/cultures_867.jpg"><img src="screenshots/cultures_867.jpg" width="320" height="200"/></a>
@@ -106,7 +108,8 @@
       A few days later, I came across <a href="https://news.ycombinator.com/item?id=8649617">a thread</a> on Hacker News showcasing a Minecraft world that had been played for three and half years. The link in the opening post leads to a map of the world, made with <a href="http://leafletjs.com/">Leaflet</a>. As I checked out the tutorials, I got a feeling that an interactive map for the wiki might actually be something that I could do.
     </p>
 
-    <h1 id="problem">Problem</h1>
+    <h1 id="problem">Problems</h1>
+    <h2 id="shapes">Shapes</h2>
     <p>
       Leaflet supports drawing shapes from <a href="http://geojson.org/">GeoJSON</a> files and accessing them easily, as <a href="http://leafletjs.com/examples/choropleth.html">this tutorial</a> shows.
     </p>
@@ -130,6 +133,20 @@
       This requirement excludes using for example a flood fill to find border pixels. My solution is to use a variant of <a href="http://en.wikipedia.org/wiki/Marching_squares">marching squares algorithm</a>, implemented in <a href="https://github.com/Lasokki/paradoxmap/blob/master/marcher/marcher.py">marcher.py</a>
     </p>
 
+    <h2 id="resources">Diving into resources</h2>
+    <p>
+      Cultures and religions have various attributes, of which <code>color</code> is what interests us the most. They are defined in two files:
+      <ul>
+	<li>00_cultures.txt</li>
+	<li>00_religions.txt</li>
+      </ul>
+
+      These files are well indented and therefore it was quite simple to extract information from them.
+    </p>
+    <p>
+      Next, each province must be assigned with a culture and a religion. For each province, this information is stored in a text file, which have names with format <em>ID - Province Name</em>. From these files I have parsed a &quot;default&quot; value for religion and culture.
+    </p>
+
     <h1 id="todo">TODO</h1>
     <p>
       The project is not yet finished. Thus far, I have managed to create the GeoJSON, but it is merely a template. My next challenge is to collect data from various plaintext files that have been scattered in the game folder. This data includes:
@@ -137,8 +154,8 @@
     <ul>
       <li>Characters for each starting date and their vassal-liege -connections</li>
       <li>De jure titles</li>
-      <li>Culture for each province</li>
-      <li>Religion for each province</li>
+      <li>Cultures for each major starting date</li>
+      <li>Religions for each major starting date</li>
       <li>Information about holdings in each province</li>
     </ul>
     <p>
