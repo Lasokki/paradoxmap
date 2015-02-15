@@ -27,18 +27,58 @@ info.update = function (props, id, culture, religion) {
     this._div.innerHTML = '<a href="../paradoxmap_info/">What is this thing?</a><br><br><a href="https://github.com/Lasokki/paradoxmap">GitHub</a><br><h4>Click on a province to zoom in</h4>' + (props ? props.name: "") + '<br>' + (id ? id: "") + '<br>' + (culture ? culture: "") + '<br>' + (religion ? religion:"");
 };
 
+//info.addTo(map);
+
+var mapmodes = L.control();
+
+mapmodes.onAdd = function(map) {
+    this._div = L.DomUtil.create('div', 'mapmode');
+    this.update();
+    return this._div;
+};
+
+mapmodes.update = function() {
+    this._div.innerHTML = '<button onClick="showReligions()">Religions</button><button onClick="showCultures()">Cultures</button>';
+};
+
+//mapmodes.setPosition('');
+mapmodes.addTo(map);
 info.addTo(map);
+
+function showCultures() {
+    geojson.setStyle(style_cultures);
+}
+
+function showReligions() {
+    geojson.setStyle(style_religions);
+}
 
 // GeoJSON-STUFF
 
-function getColor(n, culture) {
+function getCultureColours(n, culture) {
     return n == "" ? "black" :
 	culture_colours[culture];
 }
 
-function style(feature) {
+function getReligionColours(n, religion) {
+    return n == "" ? "black" :
+	religion_colours[religion];
+}
+
+function style_religions(feature) {
     return {
-	fillColor: getColor(feature.properties.name, cultures[feature.id]),
+	fillColor: getReligionColours(feature.properties.name, religions[feature.id]),
+        weight: 2,
+        opacity: 1,
+        color: 'maroon',
+        dashArray: '3',
+        fillOpacity: 0.9
+    };
+}
+
+function style_cultures(feature) {
+    return {
+	fillColor: getCultureColours(feature.properties.name, cultures[feature.id]),
         weight: 2,
         opacity: 1,
         color: 'maroon',
@@ -85,6 +125,6 @@ function onEachFeature(feature, layer) {
 }
 
 geojson = L.geoJson(ckii_provdata, {
-    style: style,
+    style: style_religions,
     onEachFeature: onEachFeature
 }).addTo(map);
