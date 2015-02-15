@@ -7,22 +7,39 @@ Folders to check:
 from os import listdir, path
 import time, re, json
 
-def read_culture_colours():
+def read_colours():
     start = time.clock()
 
-    colours = {}
+    colours = find_colours("00_cultures.txt")
 
-    f = open("00_cultures.txt")
-    graph_re = re.compile('graphical')
-    curly_re = re.compile('\s}')
-    color_re = re.compile('color');
+    f = open('cultures_and_religions.js', 'w')
+    f.write("var culture_colours = ") 
+    json.dump(colours, f, separators=(',',':'))
+
+    colours = find_colours("00_religions.txt")
+
+    f.write(";var religion_colours = ") 
+    json.dump(colours, f, separators=(',',':'))
+
+    f.close()
+
+    delta = time.clock() - start
+    print ("Colour parsing took %.3f seconds" %delta)
+
+def find_colours(txt):
+
+    colours = {}
+    f = open(txt)
+    skip = re.compile('graphical|_names|ai_|has_|playable|hostile|crusade|Names|\s}')
+    color_re = re.compile('color')
 
     for line in f:
         tabs = len(line) - len(line.lstrip('\t'))
         colour = None
-        if tabs == 1 and not re.search(graph_re, line) and not re.match(curly_re, line):
+
+        if tabs == 1 and not re.search(skip, line):
             tmp = line.split(' = ')
-            culture = tmp[0].strip()
+            key = tmp[0].strip()
 
         if tabs == 2 and re.search(color_re, line):
             tmp = line.split(' = ')
@@ -35,14 +52,9 @@ def read_culture_colours():
             colour = colour + "," + str((int(255 * float(cl[2])))) + ")"
 
         if colour is not None:
-            colours[culture] = colour
+            colours[key] = colour
 
-    with open('cultures_and_religions.js', 'w') as f:
-        f.write("var culture_colours = ") 
-        json.dump(colours, f, separators=(',',':'))
-
-    delta = time.clock() - start
-    print ("Culture colour parsing took %.3f seconds" %delta)
+    return colours
 
 def read_cultures():
     start = time.clock()
@@ -111,7 +123,8 @@ def read_religions():
     print ("Religion parsing took %.3f seconds" %delta)
                         
 def generate():
-    read_culture_colours()
+    read_colours()
+    #old_read_culture_colours()
     read_cultures()
     read_religions()
 
