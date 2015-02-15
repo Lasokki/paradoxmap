@@ -32,10 +32,8 @@ info.addTo(map);
 // GeoJSON-STUFF
 
 function getColor(n, culture) {
-    return n == "" ? "black" :
-	culture == "finnish" ? "blue" :
-	culture == "norse" ? "yellow" :
-	"maroon";
+    return n == "" ? "maroon" :
+	culture_colours[culture];
 }
 
 function style(feature) {
@@ -45,7 +43,7 @@ function style(feature) {
         opacity: 1,
         color: 'maroon',
         dashArray: '3',
-        fillOpacity: 0.4
+        fillOpacity: 0.9
     };
 }
 
