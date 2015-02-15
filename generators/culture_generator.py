@@ -8,6 +8,7 @@ from os import listdir, path
 import time, re, json
 
 def read_culture_colours():
+    start = time.clock()
 
     colours = {}
 
@@ -32,18 +33,22 @@ def read_culture_colours():
             colour = colour + str((int(255 * float(cl[0]))))
             colour = colour + "," + str((int(255 * float(cl[1]))))
             colour = colour + "," + str((int(255 * float(cl[2])))) + ")"
-            print colour
 
         if colour is not None:
             colours[culture] = colour
 
-    with open('cultures.js', 'w') as f:
+    with open('cultures_and_religions.js', 'w') as f:
         f.write("var culture_colours = ") 
         json.dump(colours, f, separators=(',',':'))
 
-def read_cultures_from_provinces():
-    date_re = re.compile('\Aculture')
+    delta = time.clock() - start
+    print ("Culture colour parsing took %.3f seconds" %delta)
 
+def read_cultures():
+    start = time.clock()
+
+    cult_re = re.compile('culture')
+    
     cultures = {}
 
     for prov in listdir("history/provinces"):
@@ -53,8 +58,10 @@ def read_cultures_from_provinces():
         f = open(provp)
 
         culture = None
+
         for line in f:
-            if re.search(date_re, line):
+
+            if re.search(cult_re, line):
                 tmp = line.split(' = ')
                 tmp = tmp[1].split('#')
                 culture = tmp[0].strip()
@@ -63,13 +70,50 @@ def read_cultures_from_provinces():
         if culture is not None:
             cultures[prov_id] = culture
 
-    with open('cultures.js', 'a') as f:
+    with open('cultures_and_religions.js', 'a') as f:
         f.write(";var cultures = ") 
         json.dump(cultures, f, separators=(',',':'))
 
+    delta = time.clock() - start
+    print ("Culture parsing took %.3f seconds" %delta)
+
+def read_religions():
+    start = time.clock()
+
+    reli_re = re.compile('religion')
+    
+    religions = {}
+
+    for prov in listdir("history/provinces"):
+        prov_id = int((prov.split(' '))[0])
+        provp = path.join("history/provinces", prov)
+
+        f = open(provp)
+
+        religion = None
+
+        for line in f:
+
+            if re.search(reli_re, line):
+                tmp = line.split(' = ')
+                tmp = tmp[1].split('#')
+                religion = tmp[0].strip()
+                break
+
+        if religion is not None:
+            religions[prov_id] = religion
+
+    with open('cultures_and_religions.js', 'a') as f:
+        f.write(";var religions = ") 
+        json.dump(religions, f, separators=(',',':'))
+
+    delta = time.clock() - start
+    print ("Religion parsing took %.3f seconds" %delta)
+                        
 def generate():
     read_culture_colours()
-    read_cultures_from_provinces()
+    read_cultures()
+    read_religions()
 
 if __name__ == "__main__":
     start = time.clock()
