@@ -56,7 +56,7 @@ def find_colours(txt):
 
     return colours
 
-def read_cultures():
+def read_default_cultures():
     start = time.clock()
 
     cult_re = re.compile('culture')
@@ -89,7 +89,7 @@ def read_cultures():
     delta = time.clock() - start
     print ("Culture parsing took %.3f seconds" %delta)
 
-def read_religions():
+def read_default_religions():
     start = time.clock()
 
     reli_re = re.compile('religion')
@@ -121,12 +121,68 @@ def read_religions():
 
     delta = time.clock() - start
     print ("Religion parsing took %.3f seconds" %delta)
+
+def parse_stuff_by_starting_date(starting_date, regx):
+    """This function will parse cultures and religions for provinces by a given starting date.
+    Mode (culture|religion) is defined with a regex.
+
+    It seems that if a date changes multiple values attributes of the province, changes are split on multiple lines like this:
+    1430.1.1 {
+    \tculture = ottoman
+    \treligion = sunni
+    }
+
+    If there is only one change, it sometimes is on a single line:
+    790.1.1 { culture = dutch }
+
+    params:
+
+    starting date -- datetime
+    regx -- culture or religion
+    
+    """
+    out = {}
+    date_re = re.compile('\A\d')
+
+    for prov in listdir("history/provinces"):
+        prov_id = int((prov.split(' '))[0])
+        provp = path.join("history/provinces", prov)
+
+        f = open(provp)
+
+        for line in f:
+
+            if not go_in:
+                if re.match(date_re, line):
+                    tmp = line.split('=')
+                    dstr = tmp[0].rstrip()
+                    
+                    if dstr[4] != '.':
+                        dstr = '0' + dstr
+                    
+                    date = time.strptime(dstr,"%Y.%m.%d")
+                
+                    if date < starting_date:
+                        if re.search(regx, tmp[1]):
+                            xs = tmp[1].split(' = ')
+                            xs = xs[1].split('#')
+                            cr = xs[0].strip()
+
+                        else:
+                            go_in = True
+
+            else:
+                tabs = len(line) - len(line.lstrip('\t'))
+                if re.search(regx, line):
+                    xs = line.split(' = ')
+                    xs = xs[1].split('#')
+                    cr = xs[0].strip()
                         
 def generate():
-    read_colours()
-    #old_read_culture_colours()
-    read_cultures()
-    read_religions()
+    testderp()
+    #read_colours()
+    #read_cultures()
+    #read_religions()
 
 if __name__ == "__main__":
     start = time.clock()
