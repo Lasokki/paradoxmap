@@ -5,6 +5,7 @@ Folders to check:
 /history/provinces
 """
 from os import listdir, path
+from datetime import datetime
 import time, re, json
 
 def read_colours():
@@ -144,11 +145,15 @@ def parse_stuff_by_starting_date(starting_date, regx):
     out = {}
     date_re = re.compile('\A\d')
 
+    i = 0
+
     for prov in listdir("history/provinces"):
         prov_id = int((prov.split(' '))[0])
         provp = path.join("history/provinces", prov)
 
         f = open(provp)
+
+        go_in = False
 
         for line in f:
 
@@ -160,26 +165,46 @@ def parse_stuff_by_starting_date(starting_date, regx):
                     if dstr[4] != '.':
                         dstr = '0' + dstr
                     
-                    date = time.strptime(dstr,"%Y.%m.%d")
+                    derp = datetime.strptime(dstr,"%Y.%m.%d")
                 
-                    if date < starting_date:
-                        if re.search(regx, tmp[1]):
-                            xs = tmp[1].split(' = ')
-                            xs = xs[1].split('#')
-                            cr = xs[0].strip()
-
+                    if derp <= starting_date:
+                        #print derp
+                        #print tmp
+                        maybe_break = tmp[1].split('{')
+                        #print tmp
+                        if maybe_break[1] != '\r\n':
+                            if re.search(regx, tmp[1]):
+                                #print tmp
+                                xs = tmp[2].split('}')
+                                #print xs
+                                cr = xs[0].strip()
+                                cr = cr.split()
+                                cr = cr[0]
+                                print "singleline: " + cr #+ " " + line
+                                i = i + 1
                         else:
+                            #print "going in"
                             go_in = True
 
             else:
-                tabs = len(line) - len(line.lstrip('\t'))
+                #print "yolo: " + line
+                #tabs = len(line) - len(line.lstrip('\t'))
                 if re.search(regx, line):
-                    xs = line.split(' = ')
-                    xs = xs[1].split('#')
-                    cr = xs[0].strip()
+                    xs = line.split('=')
+                    #print xs
+                    cr = xs[1].strip()
+                    
+                    print "multiline: " + cr #+ " " + line
+                    i = i + 1
+                    go_in = False
+                elif re.match(re.compile('}'), line):
+                    #print "jumping out: " + line
+                    go_in = False
                         
+
+    print i
 def generate():
-    testderp()
+    parse_stuff_by_starting_date(datetime(2000,1,1), re.compile('culture'))
     #read_colours()
     #read_cultures()
     #read_religions()
