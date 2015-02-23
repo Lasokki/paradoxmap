@@ -50,12 +50,14 @@ def map_image(width, height, pixels):
     mapped_image = [[None] * height] * width
     next_label = 1
 
+    # First pass: mark each component with labels
     for i in range(width):    # for every pixel:
         for j in range(height):
            px = pixels[i,j]
 
            if px is not (255,255,255):
                
+               # Search for neighbours 
                nghs = neighbours(x,y, mapped_image)
                nw = nghs[0]
                n = nghs[1]
@@ -83,3 +85,20 @@ def map_image(width, height, pixels):
                             if ng is not None and (ng.label < min_neigh.label):
                                 min_neigh = ng
                         
+
+                    mapped_image[x][y] = min_neigh
+
+                    for ng in nghs:
+                        if ng is not None and min_neigh is not None:
+                            union(min_neigh, ng)
+
+
+    for i in range(width):    # for every pixel:
+        for j in range(height):
+            px = pixels[i,j]
+            
+            if px is not (255,255,255):
+                mapped_image[x][y] = find(mapped_image[x][y])
+
+
+    return mapped_image
