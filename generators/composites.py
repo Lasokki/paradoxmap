@@ -1,6 +1,7 @@
 from PIL import Image
+from set import Set
 
-def neighbours(x, y, mapped):
+def neighbours(x, y, width, mapped):
     output = [None, None, None, None]
     
     if y != 0:
@@ -17,8 +18,8 @@ def neighbours(x, y, mapped):
             output[1] = mapped[x][y-1]
             output[2] = mapped[x+1][y-1]
              
-        elif(x != 0):
-            output[3] = mapped[x-1][y]
+    elif x != 0:
+        output[3] = mapped[x-1][y]
     
     return output
 
@@ -51,35 +52,35 @@ def map_image(width, height, pixels):
     next_label = 1
 
     # First pass: mark each component with labels
-    for i in range(width):    # for every pixel:
-        for j in range(height):
-           px = pixels[i,j]
+    for x in range(width):    # for every pixel:
+        for y in range(height):
+            px = pixels[x,y]
 
-           if px is not (255,255,255):
+            if px is not (255,255,255):
                
                # Search for neighbours 
-               nghs = neighbours(x,y, mapped_image)
-               nw = nghs[0]
-               n = nghs[1]
-               ne = nghs[2]
-               w = nghs[3]
+                nghs = neighbours(x,y, width, mapped_image)
+                nw = nghs[0]
+                n = nghs[1]
+                ne = nghs[2]
+                w = nghs[3]
 
-               if nw is None and n is None and ne is None and w is None:
-                   mapped_image[x][y] = Set(next_label, px)
-                   next_label = next_label + 1
-                
-               else:
-                   min_neigh = None
+                if nw is None and n is None and ne is None and w is None:
+                    mapped_image[x][y] = Set(next_label, px)
+                    next_label = next_label + 1
+                   
+                else:
+                    min_neigh = None
 
-                   if nw is not None:
-                       min_neigh = nw
-                   elif n is not None:
-                       min_neigh = n
-                   elif ne is not None:
-                       min_neigh = ne
-                   elif w is not None:
-                       min_neigh = w
-
+                    if nw is not None:
+                        min_neigh = nw
+                    elif n is not None:
+                        min_neigh = n
+                    elif ne is not None:
+                        min_neigh = ne
+                    else:
+                        min_neigh = w
+                       
                     if min_neigh is not None:
                         for ng in nghs:
                             if ng is not None and (ng.label < min_neigh.label):
@@ -102,3 +103,8 @@ def map_image(width, height, pixels):
 
 
     return mapped_image
+
+if __name__ == "__main__":
+    img = Image.open("provinces.bmp")
+    pix = img.load()
+    map_image(img.size[0], img.size[1], pix)
