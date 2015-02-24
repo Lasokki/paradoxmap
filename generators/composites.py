@@ -9,7 +9,7 @@ def neighbours(x, y, width, mapped):
             output[0] = mapped[x-1][y-1]
             output[1] = mapped[x][y-1]
             
-            if not (x >= width):
+            if not x+1 >= width:
                 output[2] = mapped[x+1][y-1]
                 
             output[3] = mapped[x-1][y]
@@ -54,9 +54,10 @@ def map_image(width, height, pixels):
     # First pass: mark each component with labels
     for x in range(width):    # for every pixel:
         for y in range(height):
+            #print x, y
             px = pixels[x,y]
 
-            if px is not (255,255,255):
+            if px != (255,255,255):
                
                # Search for neighbours 
                 nghs = neighbours(x,y, width, mapped_image)
@@ -94,11 +95,11 @@ def map_image(width, height, pixels):
                             union(min_neigh, ng)
 
 
-    for i in range(width):    # for every pixel:
-        for j in range(height):
-            px = pixels[i,j]
+    for x in range(width):    # for every pixel:
+        for y in range(height):
+            px = pixels[x,y]
             
-            if px is not (255,255,255):
+            if px != (255,255,255):
                 mapped_image[x][y] = find(mapped_image[x][y])
 
 
@@ -106,5 +107,8 @@ def map_image(width, height, pixels):
 
 if __name__ == "__main__":
     img = Image.open("provinces.bmp")
+    print img.size[0], img.size[1]
+    
     pix = img.load()
-    map_image(img.size[0], img.size[1], pix)
+    mapped = map_image(img.size[0], img.size[1], pix)
+    
