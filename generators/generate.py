@@ -91,9 +91,7 @@ def find_starting_points(width, height, pixels):
     
     for i in range(width):    # for every pixel:
         for j in range(height):
-            try:
-                output[pixels[i,j]]
-            except KeyError:                
+            if not pixels[i,j] in output:
                 output[pixels[i,j]] = (i,j)
 
     delta = time.time() - start
@@ -144,7 +142,7 @@ def generate():
         print ("{}/{} {} {} {}".format(i, prov_count, colour, prov_name, prov_id))
         marcher.colour = colour
 
-        try:
+        if colour in starting_points:
             sp = starting_points[colour]
             points = marcher.do_march(sp)
             perimeter = 0
@@ -178,10 +176,6 @@ def generate():
                 max_perimeter = perimeter
             if i == 1:
                 min_perimeter = max_perimeter
-
-        #If there is no starting point, skip
-        except KeyError:
-            pass
 
     #Close the file with closing brackets of features and var ckii_provdata
     f.write(']};')
