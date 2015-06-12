@@ -194,11 +194,11 @@ def parse_stuff_by_starting_date(starting_date, regx):
 
     print i
 def generate():
-    parse_stuff_by_starting_date(datetime(2000,1,1), re.compile('culture'))
-    parse_stuff_by_starting_date(datetime(2000,1,1), re.compile('religion'))
-    #read_colours()
-    #read_cultures()
-    #read_religions()
+    #parse_stuff_by_starting_date(datetime(2000,1,1), re.compile('culture'))
+    #parse_stuff_by_starting_date(datetime(2000,1,1), re.compile('religion'))
+    read_colours()
+    read_default_cultures()
+    read_default_religions()
 
 if __name__ == "__main__":
     start = time.clock()
